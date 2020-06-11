@@ -15,10 +15,13 @@ body {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 1.25rem;
+    left: 0;
+    padding: 1.25rem;
 }
 
 .overlay {
+    position: absolute;
+    top: 0;
     width: 200px;
     height: 200px;
     border-radius: 10px;
@@ -30,4 +33,5 @@ body {
 .logo:hover .overlay {
     opacity: 1;
 }
+
 
