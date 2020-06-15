@@ -1,0 +1,10 @@
+easy_admin:
+   entities:
+        # List the entity class name you want to manage
+        - App\Entity\Company
+        - App\Entity\Participant
+        - App\Entity\User
+        - App\Entity\Session
+        - App\Entity\Trainer
+        - App\Entity\Training
+        - App\Entity\Certificate
