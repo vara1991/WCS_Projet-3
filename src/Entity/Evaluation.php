@@ -52,19 +52,18 @@ class Evaluation
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity=EvalScore::class, inversedBy="evaluations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $eval_score;
-
-    /**
      * @ORM\ManyToMany(targetEntity=EvalYn::class, inversedBy="evaluations")
      */
     private $evaluations;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=EvalScore::class, inversedBy="evaluations")
+     */
+    private $eval_score;
+
     public function __construct()
     {
-        $this->evaluations = new ArrayCollection();
+        $this->eval_score = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,18 +143,6 @@ class Evaluation
         return $this;
     }
 
-    public function getEvalScore(): ?EvalScore
-    {
-        return $this->eval_score;
-    }
-
-    public function setEvalScore(?EvalScore $eval_score): self
-    {
-        $this->eval_score = $eval_score;
-
-        return $this;
-    }
-
     /**
      * @return Collection|EvalYn[]
      */
@@ -177,6 +164,32 @@ class Evaluation
     {
         if ($this->evaluations->contains($evaluation)) {
             $this->evaluations->removeElement($evaluation);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EvalScore[]
+     */
+    public function getEvalScore(): Collection
+    {
+        return $this->eval_score;
+    }
+
+    public function addEvalScore(EvalScore $evalScore): self
+    {
+        if (!$this->eval_score->contains($evalScore)) {
+            $this->eval_score[] = $evalScore;
+        }
+
+        return $this;
+    }
+
+    public function removeEvalScore(EvalScore $evalScore): self
+    {
+        if ($this->eval_score->contains($evalScore)) {
+            $this->eval_score->removeElement($evalScore);
         }
 
         return $this;
