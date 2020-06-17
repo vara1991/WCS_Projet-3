@@ -1,10 +1,100 @@
 easy_admin:
-   entities:
-        # List the entity class name you want to manage
-        - App\Entity\Company
-        - App\Entity\Participant
-        - App\Entity\User
-        - App\Entity\Session
-        - App\Entity\Trainer
-        - App\Entity\Training
-        - App\Entity\Certificate
+  site_name: 'LUF Admin'
+  formats:
+    datetime: 'd/m/Y'
+  design:
+    menu:
+      - {entity : 'Entreprise', icon: 'building'}
+      - {entity : 'Session', icon: 'box'}
+      - {entity : 'Formation', icon: 'book'}
+      - {entity : 'Intervenant', icon: 'chalkboard-teacher'}
+      - {entity : 'Participant', icon: 'users'}
+      - {entity : 'Certificat', icon: 'graduation-cap'}
+      - {entity : 'Connexion', icon: 'user'}
+
+  entities:
+      Entreprise:
+          class: App\Entity\Company
+          list:
+            fields: ['id', 'name', 'email']
+            actions:
+              - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+              - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+          icon: 'address-book'
+          form:
+              fields:
+                - {property: 'name'}
+                - {property: 'email'}
+
+      Session:
+        class: App\Entity\Session
+        list:
+          fields: ['id', 'is_archived', 'start_date', 'end_date', 'connection_number', 'company', 'password']
+          actions:
+            - {name: 'session_register', type: 'route', icon: 'plus-square'}
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        form:
+          fields:
+            - {property: 'is_archived'}
+            - {property: 'start_date'}
+            - {property: 'end_date'}
+            - {property: 'connection_number'}
+            - {property: 'company'}
+
+      Formation:
+        class: App\Entity\Training
+        list:
+          fields: ['id', 'title', 'face_date', 'hours', 'session', 'trainer']
+          actions:
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        form:
+          fields:
+            - {property: 'title'}
+            - {property: 'face_date'}
+            - {property: 'hours'}
+            - {property: 'session'}
+            - {property: 'trainer'}
+
+      Intervenant:
+        class: App\Entity\Trainer
+        list:
+          fields: ['id', 'firstname', 'lastname']
+          actions:
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        form:
+          fields:
+            - {property: 'firstname'}
+            - {property: 'lastname'}
+
+      Participant:
+        class: App\Entity\Participant
+        list:
+          fields: ['id', 'firstname', 'lastname', 'email', 'company', 'certificate']
+          actions:
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        form:
+          fields:
+            - {property: 'firstname'}
+            - {property: 'lastname'}
+            - {property: 'email'}
+            - {property: 'company'}
+            - {property: 'certificate'}
+
+      Certificat:
+        class: App\Entity\Certificate
+        list:
+          actions:
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+
+      Connexion:
+        class: App\Entity\User
+        list:
+          actions:
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+
