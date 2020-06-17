@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,7 @@ class AdminController extends AbstractController
 {
     /**
      * @Route(path = "/admin/admin/register", name = "session_register")
+     * @Security("has_role('ROLE_ADMIN')")
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param Request $request
      * @return Response
