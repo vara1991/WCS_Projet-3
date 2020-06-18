@@ -27,12 +27,21 @@
                 <div class="d-flex align-items-center justify-content-center overlay">Nos produits Schiller</div>
             </a>
         </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+            <a class="logo" href="#">
+                <img src="https://cdn.dribbble.com/users/609665/screenshots/2992885/heart-dd.gif"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay">MEMENTO</div>
+            </a>
+        </div>
+        {% else %}
         <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
             <a class="logo" href="{{ path('app_login') }}">
                 <img src="https://cdn.dribbble.com/users/609665/screenshots/2992885/heart-dd.gif"  height="200px" width="200px" alt="">
                 <div class="d-flex align-items-center justify-content-center overlay">LOGIN</div>
             </a>
         </div>
+        {% endif %}
         <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
             <a class="logo" href="http://sat.schillerfrance.fr/Catalogues/2020_02_Brochure_LUF_tarifs.pdf" target="_blank">
                 <img src="assets/logos/logo5.jpg"  height="200px" width="200px" alt="">
