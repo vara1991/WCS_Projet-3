@@ -67,7 +67,7 @@ class Session
 
     public function __construct()
     {
-        $password = substr(str_shuffle('0123456789'),0,6);
+        $password = substr(str_shuffle('0123456789'),0,4);
         $this->certificates = new ArrayCollection();
         $this->participants = new ArrayCollection();
         $this->setPassword($password);
