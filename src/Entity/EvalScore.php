@@ -25,7 +25,7 @@ class EvalScore
     private $score;
 
     /**
-     * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="eval_score")
+     * @ORM\ManyToMany(targetEntity=Evaluation::class, mappedBy="eval_score")
      */
     private $evaluations;
 
@@ -63,7 +63,7 @@ class EvalScore
     {
         if (!$this->evaluations->contains($evaluation)) {
             $this->evaluations[] = $evaluation;
-            $evaluation->setEvalScore($this);
+            $evaluation->addEvalScore($this);
         }
 
         return $this;
@@ -73,10 +73,7 @@ class EvalScore
     {
         if ($this->evaluations->contains($evaluation)) {
             $this->evaluations->removeElement($evaluation);
-            // set the owning side to null (unless already changed)
-            if ($evaluation->getEvalScore() === $this) {
-                $evaluation->setEvalScore(null);
-            }
+            $evaluation->removeEvalScore($this);
         }
 
         return $this;
