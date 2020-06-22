@@ -15,7 +15,6 @@ class AdminController extends AbstractController
 {
     /**
      * @Route(path = "/admin/admin/register", name = "session_register")
-     * @Security("has_role('ROLE_ADMIN')")
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param Request $request
      * @return Response
