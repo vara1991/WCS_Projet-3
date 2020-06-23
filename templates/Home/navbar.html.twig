@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Learning Urgences Factory</span>
+    <a class="navbar-brand" href="{{ path('home_index') }}">Learning Urgences Factory</a>
     <ul class="navbar-nav mr-auto">
     {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item">
