@@ -27,6 +27,7 @@ class Session
     /**
      * @ORM\Column(type="string", length=255)
      */
+
     private $password;
 
     /**
@@ -66,8 +67,10 @@ class Session
 
     public function __construct()
     {
+        $password = substr(str_shuffle('0123456789'),0,4);
         $this->certificates = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->setPassword($password);
     }
 
     public function getId(): ?int
@@ -225,5 +228,10 @@ class Session
         }
 
         return $this;
+    }
+
+    public function __toString() {
+
+        return $this->getCompany()->getName();
     }
 }

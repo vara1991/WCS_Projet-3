@@ -1,0 +1,13 @@
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Learning Urgences Factory</span>
+    <ul class="navbar-nav mr-auto">
+    {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+            <a class="nav-link right"  href="{{ path('easyadmin') }}">AdminLUF</a>
+        </li>
+    {% endif %}
+    </ul>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_logout') }}" class="mx-2 text-danger"> Se déconnecter</a>
+    {% endif %}
+</nav>
