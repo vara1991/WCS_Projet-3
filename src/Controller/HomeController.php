@@ -42,7 +42,7 @@ class HomeController extends AbstractController
             $this->addFlash('success', 'Votre mail à bien été envoyé !');
             $email = (new TemplatedEmail())
                 ->from('sten.quidelleur@outlook.fr')
-                ->to('sten.test4php@gmail.com')
+                ->to($contact->getEmail())
                 ->subject($contact->getObject())
                 ->htmlTemplate('Home/email/notification.html.twig')
                 ->context(['contact' => $contact]);
