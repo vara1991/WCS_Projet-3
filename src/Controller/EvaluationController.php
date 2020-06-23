@@ -28,7 +28,7 @@ class EvaluationController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $evaluation->setName($_POST['name']);
             $evaluation->setGlobalScore($_POST['global_score']);
-            if(!empty($_POST['comment'])){
+            if(isset($_POST['comment'])){
                 $evaluation->setComment($_POST['comment']);
             };
             $em->persist($evaluation);
