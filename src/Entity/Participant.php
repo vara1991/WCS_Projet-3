@@ -35,11 +35,6 @@ class Participant
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Response::class, inversedBy="participants")
-     */
-    private $response;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="participants")
      */
     private $company;
@@ -66,9 +61,14 @@ class Participant
      */
     private $civility;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ResponseQcm::class, mappedBy="participant", orphanRemoval=true)
+     */
+    private $responseQcms;
+
     public function __construct()
     {
-        $this->response = new ArrayCollection();
+        $this->responseQcms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,32 +108,6 @@ class Participant
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Response[]
-     */
-    public function getResponse(): Collection
-    {
-        return $this->response;
-    }
-
-    public function addResponse(Response $response): self
-    {
-        if (!$this->response->contains($response)) {
-            $this->response[] = $response;
-        }
-
-        return $this;
-    }
-
-    public function removeResponse(Response $response): self
-    {
-        if ($this->response->contains($response)) {
-            $this->response->removeElement($response);
-        }
 
         return $this;
     }
@@ -199,6 +173,37 @@ class Participant
     public function setCivility(?Civility $civility): self
     {
         $this->civility = $civility;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResponseQcm[]
+     */
+    public function getResponseQcms(): Collection
+    {
+        return $this->responseQcms;
+    }
+
+    public function addResponseQcm(ResponseQcm $responseQcm): self
+    {
+        if (!$this->responseQcms->contains($responseQcm)) {
+            $this->responseQcms[] = $responseQcm;
+            $responseQcm->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponseQcm(ResponseQcm $responseQcm): self
+    {
+        if ($this->responseQcms->contains($responseQcm)) {
+            $this->responseQcms->removeElement($responseQcm);
+            // set the owning side to null (unless already changed)
+            if ($responseQcm->getParticipant() === $this) {
+                $responseQcm->setParticipant(null);
+            }
+        }
 
         return $this;
     }
