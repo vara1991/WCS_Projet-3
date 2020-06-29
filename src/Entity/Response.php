@@ -25,13 +25,13 @@ class Response
     private $text;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="response")
+     * @ORM\OneToMany(targetEntity=ResponseQcm::class, mappedBy="Response", orphanRemoval=true)
      */
-    private $participants;
+    private $responseQcms;
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
+        $this->responseQcms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,28 +52,31 @@ class Response
     }
 
     /**
-     * @return Collection|Participant[]
+     * @return Collection|ResponseQcm[]
      */
-    public function getParticipants(): Collection
+    public function getResponseQcms(): Collection
     {
-        return $this->participants;
+        return $this->responseQcms;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addResponseQcm(ResponseQcm $responseQcm): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->addResponse($this);
+        if (!$this->responseQcms->contains($responseQcm)) {
+            $this->responseQcms[] = $responseQcm;
+            $responseQcm->setResponse($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeResponseQcm(ResponseQcm $responseQcm): self
     {
-        if ($this->participants->contains($participant)) {
-            $this->participants->removeElement($participant);
-            $participant->removeResponse($this);
+        if ($this->responseQcms->contains($responseQcm)) {
+            $this->responseQcms->removeElement($responseQcm);
+            // set the owning side to null (unless already changed)
+            if ($responseQcm->getResponse() === $this) {
+                $responseQcm->setResponse(null);
+            }
         }
 
         return $this;
