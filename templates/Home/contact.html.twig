@@ -9,7 +9,9 @@
             <div class="col">{{ form_row(form.lastname) }}</div>
         </div>
         {{ form_rest(form) }}
-        <button class="btn btn-info mt-3">{{ button_label|default('Envoyer') }}</button>
+        <div class="col text-center">
+            <button class="btn btn-info my-2">{{ button_label|default('Envoyer') }}</button>
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}
