@@ -52,18 +52,19 @@ class Evaluation
     private $company;
 
     /**
-     * @ORM\ManyToMany(targetEntity=EvalYn::class, inversedBy="evaluations")
+     * @ORM\OneToMany(targetEntity=ResponseYn::class, mappedBy="evaluation", orphanRemoval=true)
      */
-    private $evaluations;
+    private $responseYns;
 
     /**
-     * @ORM\ManyToMany(targetEntity=EvalScore::class, inversedBy="evaluations")
+     * @ORM\OneToMany(targetEntity=ResponseScore::class, mappedBy="evaluation", orphanRemoval=true)
      */
-    private $eval_score;
+    private $responseScores;
 
     public function __construct()
     {
-        $this->eval_score = new ArrayCollection();
+        $this->responseYns = new ArrayCollection();
+        $this->responseScores = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,52 +145,62 @@ class Evaluation
     }
 
     /**
-     * @return Collection|EvalYn[]
+     * @return Collection|ResponseYn[]
      */
-    public function getEvaluations(): Collection
+    public function getResponseYns(): Collection
     {
-        return $this->evaluations;
+        return $this->responseYns;
     }
 
-    public function addEvaluation(EvalYn $evaluation): self
+    public function addResponseYn(ResponseYn $responseYn): self
     {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations[] = $evaluation;
+        if (!$this->responseYns->contains($responseYn)) {
+            $this->responseYns[] = $responseYn;
+            $responseYn->setEvaluation($this);
         }
 
         return $this;
     }
 
-    public function removeEvaluation(EvalYn $evaluation): self
+    public function removeResponseYn(ResponseYn $responseYn): self
     {
-        if ($this->evaluations->contains($evaluation)) {
-            $this->evaluations->removeElement($evaluation);
+        if ($this->responseYns->contains($responseYn)) {
+            $this->responseYns->removeElement($responseYn);
+            // set the owning side to null (unless already changed)
+            if ($responseYn->getEvaluation() === $this) {
+                $responseYn->setEvaluation(null);
+            }
         }
 
         return $this;
     }
 
     /**
-     * @return Collection|EvalScore[]
+     * @return Collection|ResponseScore[]
      */
-    public function getEvalScore(): Collection
+    public function getResponseScores(): Collection
     {
-        return $this->eval_score;
+        return $this->responseScores;
     }
 
-    public function addEvalScore(EvalScore $evalScore): self
+    public function addResponseScore(ResponseScore $responseScore): self
     {
-        if (!$this->eval_score->contains($evalScore)) {
-            $this->eval_score[] = $evalScore;
+        if (!$this->responseScores->contains($responseScore)) {
+            $this->responseScores[] = $responseScore;
+            $responseScore->setEvaluation($this);
         }
 
         return $this;
     }
 
-    public function removeEvalScore(EvalScore $evalScore): self
+    public function removeResponseScore(ResponseScore $responseScore): self
     {
-        if ($this->eval_score->contains($evalScore)) {
-            $this->eval_score->removeElement($evalScore);
+        if ($this->responseScores->contains($responseScore)) {
+            $this->responseScores->removeElement($responseScore);
+            // set the owning side to null (unless already changed)
+            if ($responseScore->getEvaluation() === $this) {
+                $responseScore->setEvaluation(null);
+            }
         }
 
         return $this;

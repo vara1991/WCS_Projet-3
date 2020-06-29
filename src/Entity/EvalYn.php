@@ -25,13 +25,13 @@ class EvalYn
     private $response;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Evaluation::class, mappedBy="evaluations")
+     * @ORM\OneToMany(targetEntity=ResponseYn::class, mappedBy="eval_yn", orphanRemoval=true)
      */
-    private $evaluations;
+    private $responseYns;
 
     public function __construct()
     {
-        $this->evaluations = new ArrayCollection();
+        $this->responseYns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,28 +52,31 @@ class EvalYn
     }
 
     /**
-     * @return Collection|Evaluation[]
+     * @return Collection|ResponseYn[]
      */
-    public function getEvaluations(): Collection
+    public function getResponseYns(): Collection
     {
-        return $this->evaluations;
+        return $this->responseYns;
     }
 
-    public function addEvaluation(Evaluation $evaluation): self
+    public function addResponseYn(ResponseYn $responseYn): self
     {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations[] = $evaluation;
-            $evaluation->addEvaluation($this);
+        if (!$this->responseYns->contains($responseYn)) {
+            $this->responseYns[] = $responseYn;
+            $responseYn->setEvalYn($this);
         }
 
         return $this;
     }
 
-    public function removeEvaluation(Evaluation $evaluation): self
+    public function removeResponseYn(ResponseYn $responseYn): self
     {
-        if ($this->evaluations->contains($evaluation)) {
-            $this->evaluations->removeElement($evaluation);
-            $evaluation->removeEvaluation($this);
+        if ($this->responseYns->contains($responseYn)) {
+            $this->responseYns->removeElement($responseYn);
+            // set the owning side to null (unless already changed)
+            if ($responseYn->getEvalYn() === $this) {
+                $responseYn->setEvalYn(null);
+            }
         }
 
         return $this;
