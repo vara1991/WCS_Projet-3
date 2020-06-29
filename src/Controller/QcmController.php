@@ -2,16 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Response;
-use App\Entity\Question;
 use App\Entity\ResponseQcm;
 use App\Form\QcmType;
 use App\Repository\ParticipantRepository;
 use App\Repository\QuestionRepository;
 use App\Repository\ResponseRepository;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,17 +20,13 @@ class QcmController extends AbstractController
     public function qcm_1(QuestionRepository $questionRepository, ParticipantRepository $participantRepository, ResponseRepository $responseRepository, Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //dd($_POST);
             $entityManager = $this->getDoctrine()->getManager();
-            //for ($i=1; $i <= 3; $i++){
-                $responseQcm = new ResponseQcm();
-                $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-                //dd($response);
-                //dd($response[0]->getId());
-                $responseQcm->setResponse($response[0]);
-                $entityManager->persist($responseQcm);
-                $entityManager->flush();
-            //}
+            $responseQcm = new ResponseQcm();
+            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+            $responseQcm->setResponse($response[0]);
+            $entityManager->persist($responseQcm);
+            $entityManager->flush();
+
             $result = null;
             if ($_POST['response'] == 2){
                 $result = true;
@@ -64,13 +57,11 @@ class QcmController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //dd($_POST);
             $entityManager = $this->getDoctrine()->getManager();
-            //for ($i=1; $i <= 3; $i++){
-                $responseQcm = new ResponseQcm();
-                $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-                $responseQcm->setResponse($response[0]);
-                $entityManager->persist($responseQcm);
-                $entityManager->flush();
-            //}
+            $responseQcm = new ResponseQcm();
+            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+            $responseQcm->setResponse($response[0]);
+            $entityManager->persist($responseQcm);
+            $entityManager->flush();
             $result = null;
             if ($_POST['response'] == 4){
                 $result = true;
@@ -100,13 +91,11 @@ class QcmController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //dd($_POST);
             $entityManager = $this->getDoctrine()->getManager();
-            //for ($i=1; $i <= 3; $i++){
-                $responseQcm = new ResponseQcm();
-                    $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-                    $responseQcm->setResponse($response[0]);
-                    $entityManager->persist($responseQcm);
-                    $entityManager->flush();
-            //}
+            $responseQcm = new ResponseQcm();
+            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+            $responseQcm->setResponse($response[0]);
+            $entityManager->persist($responseQcm);
+            $entityManager->flush();
             $result = null;
             if ($_POST['response'] == 8){
                 $result = true;
