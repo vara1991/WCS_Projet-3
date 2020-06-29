@@ -34,4 +34,8 @@ body {
     opacity: 1;
 }
 
+textarea.form-control {
+    height: 200px;
+}
+
 

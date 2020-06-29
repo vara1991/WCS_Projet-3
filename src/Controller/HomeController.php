@@ -39,14 +39,14 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 'Votre mail à bien été envoyé !');
             $email = (new TemplatedEmail())
                 ->from('sten.quidelleur@outlook.fr')
-                ->to($contact->getEmail())
+                ->to('sten.test4php@gmail.com')
                 ->subject($contact->getObject())
                 ->htmlTemplate('Home/email/notification.html.twig')
                 ->context(['contact' => $contact]);
             $mailer->send($email);
+            $this->addFlash('success', 'Votre mail à bien été envoyé !');
 
             return $this->redirectToRoute('home_index');
         }
