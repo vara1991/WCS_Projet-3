@@ -36,6 +36,11 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="user")
+     */
+    private $session;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -117,5 +122,17 @@ class User implements UserInterface
     public function __toString() {
 
         return $this->getEmail();
+    }
+
+    public function getSession(): ?Session
+    {
+        return $this->session;
+    }
+
+    public function setSession(?Session $session): self
+    {
+        $this->session = $session;
+
+        return $this;
     }
 }
