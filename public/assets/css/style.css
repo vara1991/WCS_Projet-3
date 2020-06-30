@@ -55,6 +55,26 @@ body {
 .logoNav3 {
     width: 150px;
 }
+.main {
+    min-height: calc(100vh - 85px - 54px);
+}
+.col-form-label {
+    display: none;
+}
+
+.container-qcm {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.legal a {
+    text-decoration: underline;
+    color: #FFF;
+}
+.legal {
+    color: #FFF;
+    font-size: 14px;
+}
 
 footer{
     background-color: #033f5f;
