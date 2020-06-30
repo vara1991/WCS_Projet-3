@@ -29,7 +29,7 @@ class AdminController extends AbstractController
         $user = new User();
         $user->setRoles(['ROLE_SUBSCRIBER']);
         $user->setEmail($entity->getCompany()->getEmail());
-        $user->setSession($entity->getId());
+        $user->setSession($entity);
         $user->setPassword($entity->getPassword());
         $user->setPassword(
             $passwordEncoder->encodePassword(
