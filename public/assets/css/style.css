@@ -76,6 +76,10 @@ body {
     font-size: 14px;
 }
 
+.nav-title {
+    font-size: 25px;
+}
+
 footer{
     background-color: #033f5f;
 }

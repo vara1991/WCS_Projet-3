@@ -15,17 +15,17 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/participant", name="participant")
      * @param Request $request
-     * @param SessionInterface $session
      * @return Response
      */
-    public function participant(Request $request, SessionInterface $session)
+    public function participant(Request $request)
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $participant->setSession($session->getSession());
+            $participant->setSession($this->getUser()->getSession());
+            $participant->setCompany($this->getUser()->getSession()->getCompany());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
             $entityManager->flush();
