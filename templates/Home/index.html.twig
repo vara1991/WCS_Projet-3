@@ -30,7 +30,7 @@
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
             <a class="logo" href="{{ asset('assets/documents/Memento.pdf') }}">
-                <img src="https://cdn.dribbble.com/users/609665/screenshots/2992885/heart-dd.gif"  height="200px" width="200px" alt="">
+                <img src="assets/images/memento/memento.jpg"  height="200px" width="200px" alt="">
                 <div class="d-flex align-items-center justify-content-center overlay">MEMENTO</div>
             </a>
         </div>
@@ -61,7 +61,7 @@
             </a>
         </div>
         <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="http://sat.schillerfrance.fr/Catalogues/2019_guide_complet_DAE.pdt" target="_blank">
+            <a class="logo" href="{{ asset('assets/documents/2019_guide_complet_DAE.pdf') }}">
                 <img class="logo1" src="assets/logos/logo-guide-DAE.jpg"  height="200px" width="200px" alt="">
                 <div class="d-flex align-items-center justify-content-center overlay">Guide du DAE</div>
             </a>
