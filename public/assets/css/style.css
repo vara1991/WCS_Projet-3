@@ -88,9 +88,36 @@ textarea.form-control {
     height: 200px;
 }
 
+/* evaluation */
+.question{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.red{
+    color: red;
+}
+.orange{
+    color: orange;
+}
+.olive{
+    color: olive;
+}
+.green{
+    color:green;
+}
+.bold{
+    font-weight: bold;
+}
+.line{
+    line-height: 0;
+}
+
 @media only screen and (max-width: 600px) {
 
     .navbar {
         flex-direction: column !important;
+    }
+    .line{
+        line-height: 1.5rem;
     }
 }
