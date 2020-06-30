@@ -49,6 +49,8 @@ class EvaluationController extends AbstractController
                 $em->persist($responseScore);
             }
             $em->flush();
+
+            return $this->redirectToRoute('qcm_1');
         }
 
         return $this->render('evaluation/index.html.twig', [

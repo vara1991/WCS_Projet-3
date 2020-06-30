@@ -4,44 +4,47 @@
 
 {% block body %}
     <div class="container mt-5 col-sm-12 col-md-7 col-lg-7">
-        <div class="row mb-3">
-            <h2>QCM</h2>
-        </div>
-        <form method="post">
-            <div class="row mb-3">
-                {{ question.id }}. {{ question.text }}
-            </div>
-            {% for response in responses|slice(6,3) %}
-                <div class="row">
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="response" id="gridRadios1" value="{{ response.id }}">
-                            <label class="form-check-label" for="gridRadios1">
-                                {{ response.text }}
-                            </label>
-                        </div>
+        <div class="card bg-light mb-5">
+            <div class="container-qcm mx-4">
+                <h2 class="text-center my-4">QCM</h2>
+                <form method="post">
+                    <div class="row mb-3">
+                        {{ question.id }}. {{ question.text }}
                     </div>
-                </div>
-            {% endfor %}
-            {% if result is defined %}
-                <a href="{{ path('qcm_end') }}" class="btn btn-success my-3">Suivant</a>
-            {% else %}
-                <button type="submit" class="btn btn-primary my-3">Valider</button>
-            {% endif %}
-        </form>
-
-        {% if result is defined and result == true %}
-            <p>Bravo !</p>
-        {% elseif result is defined and result == false%}
-            <p>Voici la bonne réponse :</p>
-            <p>Appeler, Masser, Défibriller, c’est la chaîne de survie à retenir ! Durant la réanimation d’un arrêt cardiaque, le
-                massage doit être pratiqué au plus vite, dès la reconnaissance de l’absence des signes de vie, pendant que les
-                secours sont alertés et avant que le défibrillateur ne soit disponible. Il faut appuyer fort et vite au milieu de la
-                poitrine, afin de substituer l’activité mécanique du cœur et la circulation dans l’organisme. Le défibrillateur sera
-                positionné durant le massage, et dès la mise en place des électrodes, l’appareil fera seul une analyse du rythme
-                cardiaque et délivrera un choc électrique si nécessaire. Reprenez le massage en suivant les consignes jusqu’à
-                l’arrivée des secours.</p>
-        {% else %}
-        {% endif %}
+                    {% for response in responses|slice(6,3) %}
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="response" id="gridRadios1" value="{{ response.id }}">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        {{ response.text }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="col text-center mt-3">
+                    {% if result is defined %}
+                        <a href="{{ path('qcm_end') }}" class="btn btn-success my-3">Suivant</a>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary my-3">Valider</button>
+                    {% endif %}
+                    </div>
+                </form>
+                {% if result is defined and result == true %}
+                    <p>Bravo !</p>
+                {% elseif result is defined and result == false%}
+                    <p>Voici la bonne réponse :</p>
+                    <p>Appeler, Masser, Défibriller, c’est la chaîne de survie à retenir ! Durant la réanimation d’un arrêt cardiaque, le
+                        massage doit être pratiqué au plus vite, dès la reconnaissance de l’absence des signes de vie, pendant que les
+                        secours sont alertés et avant que le défibrillateur ne soit disponible. Il faut appuyer fort et vite au milieu de la
+                        poitrine, afin de substituer l’activité mécanique du cœur et la circulation dans l’organisme. Le défibrillateur sera
+                        positionné durant le massage, et dès la mise en place des électrodes, l’appareil fera seul une analyse du rythme
+                        cardiaque et délivrera un choc électrique si nécessaire. Reprenez le massage en suivant les consignes jusqu’à
+                        l’arrivée des secours.</p>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}
