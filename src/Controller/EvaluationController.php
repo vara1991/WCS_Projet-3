@@ -24,6 +24,8 @@ class EvaluationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $evaluation = new Evaluation();
         $evaluation->setCreatedAt(new \DateTime('now'));
+        $evaluation->setCompany($this->getUser()->getSession()->getCompany());
+        $evaluation->setTraining($this->getUser()->getSession()->getTraining());
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $evaluation->setName($_POST['name']);
@@ -57,6 +59,9 @@ class EvaluationController extends AbstractController
             'evalYn' => $evalYnRepository->findAll(),
             'evalScore' => $evalScoreRepository->findAll(),
             'questions' => $questionsRepository->findall(),
+            'company' => $this->getUser()->getSession()->getCompany()->getName(),
+            'trainingDate' => $this->getUser()->getSession()->getTraining()->getFaceDate(),
+            'trainingName' => $this->getUser()->getSession()->getTraining()->getTitle(),
         ]);
     }
 }
