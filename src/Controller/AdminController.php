@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Session;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -19,7 +20,6 @@ class AdminController extends AbstractController
      * @param Request $request
      * @return Response
      */
-
     public function registerAction(UserPasswordEncoderInterface $passwordEncoder, Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(Session::class);
@@ -42,5 +42,23 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('easyadmin');
+    }
+
+    /**
+     * @Route(path = "/attestation", name = "attestation")
+     * @param Request $request
+     * @return Response
+     */
+    public function getAttestation(Request $request): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Participant::class);
+        $id = $request->query->get('id');
+        $participant = $repository->find($id);
+
+        $attestation = 'assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf';
+
+        return $this->render('pdf/attestationPdfView.html.twig', [
+            'attestation' => $attestation
+        ]);
     }
 }
