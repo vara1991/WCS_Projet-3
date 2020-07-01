@@ -1,11 +1,11 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,5 +54,14 @@ class HomeController extends AbstractController
         return $this->render('Home/contact.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/memento", name="memento")
+     * @return Response
+     */
+    public function memento(): Response
+    {
+        return $this->render('Home/email/memento.html.twig');
     }
 }

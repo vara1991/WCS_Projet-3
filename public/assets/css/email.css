@@ -21,7 +21,11 @@ hr {
 .bottom {
     background-color: #efefee;
 }
-.logo {
+.logo1 {
+    height: 180px;
+    width: 100%;
+}
+.logo2 {
     width: 100%;
 }
 .text-center {
