@@ -22,29 +22,16 @@
         <row>
             <columns>
                 <p>
-                    <strong>Email</strong> : {{ contact.email }}
+                    Bonjour, merci d'avoir participé à notre formation.
+                    Vous retouverai dans ce mail votre attestation en pièce jointe ainsi qu'un lien vers le memento de la formation.
                 </p>
             </columns>
         </row>
         <row>
-            <columns>
-                <p>
-                    <strong>Objet</strong> : {{ contact.object }}
-                </p>
-            </columns>
-        </row>
-        <row>
-            <columns>
-                <p>
-                    Vous avez reçu un mail de <strong>{{ contact.firstname }} {{ contact.lastname }}</strong> :
-                </p>
-            </columns>
-        </row>
-        <row>
-            <columns>
-                <center>
-                    {{ contact.message }}
-                </center>
+            <columns>Lien :
+                <a class="btn btn-success" href="{{ url('memento') }}">
+                    Memento
+                </a>
             </columns>
         </row>
         <row class="bottom">
