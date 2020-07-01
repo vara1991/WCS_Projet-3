@@ -55,4 +55,17 @@ class HomeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /**
+     * @Route("/attestation", name="attestation")
+     * @return Response
+     */
+    public function attestationPdf(): Response
+    {
+        $user = $this->getUser();
+        $session = $user->getSession();
+        //$company = $session->getCompany();
+        return $this->render('pdf/attestation.html.twig',[
+            //'company' => $company
+        ]);
+    }
 }
