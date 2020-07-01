@@ -6,59 +6,65 @@
 <div class="container pt-5 col-sm-12 col-md-9 col-lg-9">
     <div class="card bg-light px-4 mb-5">
         <div class="container px-4">
-            <h1 class="text-center my-5">VOTRE ÉVALUATION</h1>
-            <p>
-                Tout d’abord, nous vous remercions vivement d’avoir participé à notre formation sur l’arrêt cardiaque et l’utilisation de votre défibrillateur SCHILLER. Avez-vous apprécié cette rencontre avec notre équipe pédagogique ?
-            </p>
+            <h1 class="text-center my-5">VOTRE AVIS</h1>
             <form method="POST">
-                <p>Société :</p>
-                <p>Session :</p>
-                <p>Intitulé de la formation : Formation Schiller</p>
-                <p>Date : {{ "now"|date("d/m/Y") }}</p>
+                <div class="row">
+                    <p class="col-sm-8">Société : {{ company }}</p>
+                    <p class="col-sm-4">Date de la formation : {{ trainingDate |date('d/m/Y') }}</p>
+                </div>
+                <div class="row justify-content-between">
+                    <p class="col-sm-8">Intitulé de la formation : {{ trainingName }}</p>
+                    <p class="col-sm-4">Date : {{ "now"|date("d/m/Y") }}</p>
+                </div>
                 <div class="form-group row">
-                    <label for="input_name" class="col-sm-3">Nom (ne pas remplir si vous préférez rester anonyme)</label>
-                    <div class="col-sm-9">
+                    <label for="input_name" class="col-sm-8">Nom (ne pas remplir si vous préférez rester anonyme)</label>
+                    <div class="col-sm-4">
                         <input type="text" id="input_name" name="name">
                     </div>
                 </div>
-                <p>Pour quelle(s) raison(s) avez-vous suivi cette formation ?</p>
+                <hr class="my-4">
+                <p class="question">Pour quelle(s) raison(s) avez-vous suivi cette formation ?</p>
                 {% for question in questions|slice(0, 4) %}
-                    <div class="row">
-                        <p class="col-sm-10 " >{{ question.question }}</p>
-                        <div>
+                    <div class="form-group row">
+                        <p class="col-sm-10" >{{ question.question }}</p>
+                        <div class="col-sm-2">
                             <select name="responseYN{{ loop.index }}">
                                 {% for YN in evalYn %}
-                                    <option  value="{{YN.id}}" >{{YN.response}}</option></br>
+                                    <option  value="{{YN.id}}" >{{YN.response}}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
                 {% endfor %}
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Vos commentaires nous aident aussi, merci :</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
-                </div>
-                <p>
-                    Mettez une valeur en fonction de votre appréciation :
-                    (1 = insatisfaisant, 2 = peu satisfaisant, 3 = satisfaisant, 4 = très satisfaisant)
+                <hr class="my-4">
+                <p class="question line">Mettez une valeur en fonction de votre appréciation :</p>
+                <p class="bold"> (<span class="red">1</span> = insatisfaisant, <span class="orange">2</span> = peu satisfaisant, <span class="olive">3</span> = satisfaisant, <span class="green">4</span> = très satisfaisant)
                 </p>
                 {% for question in questions|slice(4, 10) %}
-                    <div class="row">
-                        <p class="col-sm-10 " >{{ question.question }}</p>
-                        <div>
+                    <div class="form-group row">
+                        <p class="col-sm-10" >{{ question.question }}</p>
+                        <div class="col-sm-2">
                             <select name="responseScore{{ loop.index }}">
                                 {% for score in evalScore %}
-                                    <option value="{{score.id}}" >{{score.score}}</option></br>
+                                    <option value="{{score.id}}" >{{score.score}}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
                 {% endfor %}
                 <div class="form-group row">
-                    <label for="input_global_score" class="col-sm-3 col-form-label">VOTRE NOTE DE SATISFACTION GLOBALE :</label>
-                    <div class="col-sm-9 ">
-                        <input type="number" id="input_global_score" name="global_score" min="0" max="10"  value="0"><span>/10</span>
+                    <label for="input_global_score" class="col-sm-10 bold">VOTRE NOTE DE SATISFACTION GLOBALE :</label>
+                    <div class="col-sm-1">
+                        <select name="global_score">
+                            {% for i in 0..10 %}
+                                <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Vos commentaires nous aident aussi, merci :</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
                 </div>
                 <p>
                     Vous allez pouvoir consulter et télécharger notre mémento ainsi que toute la documentation nécessaire. Pour finaliser et parfaire un bon parcours d’apprentissage, il est aussi intéressant de stimuler sa mémoire.
