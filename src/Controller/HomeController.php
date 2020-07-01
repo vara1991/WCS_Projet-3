@@ -63,6 +63,7 @@ class HomeController extends AbstractController
     public function memento(): Response
     {
         return $this->render('Home/email/memento.html.twig');
+    }
 
     /**
      * @Route("/attestation", name="attestation")
