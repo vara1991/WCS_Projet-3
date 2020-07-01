@@ -39,12 +39,12 @@ class ParticipantController extends AbstractController
             $pdfOptions = new Options();
             $pdfOptions->set('defaultFont', 'Arial');
             $dompdf = new Dompdf($pdfOptions);
-            $user = $this->getUser();
-            $session = $user->getSession();
-            $company = $session->getCompany();
+            $company = $this->getUser()->getSession()->getCompany();
+            $training = $this->getUser()->getSession()->getTraining();
             $html = $this->renderView('pdf/attestation.html.twig', [
                 'company' => $company,
-                'participant' => $participant
+                'participant' => $participant,
+                'training' => $training
             ]);
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'portrait');

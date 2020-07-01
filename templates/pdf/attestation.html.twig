@@ -13,12 +13,12 @@
                 </div>
                 <div class="container text-attestation">
                     <h1 class="title my-5">Attestation de suivi d’une Formation à l’utilisation d’un défibrillateur</h1>
-                    <p class="p-attestation">Lieu :</p>
-                    <p class="p-attestation">Date :</p>
-                    <p class="p-attestation">Durée :</p>
-                    <p class="p-attestation">Formateur santé et de soins d’urgence :</p>
+                    <p class="p-attestation"><strong>Lieu :</strong> {{ company.name }}</p>
+                    <p class="p-attestation"><strong>Date :</strong> {{ training.facedate | date("d/m/Y") }}</p>
+                    <p class="p-attestation"><strong>Durée :</strong> {{ training.hours }} h</p>
+                    <p class="p-attestation"><strong>Formateur santé et de soins d’urgence :</strong> {{ training.trainer }}</p>
                     <p class="p-attestation">
-                        Nous attestons que ......... a participé à une formation présentielle
+                        Nous attestons que <strong>{{ participant.firstname }} {{ participant.lastname }}</strong> a participé à une formation présentielle
                         d’initiation à l’utilisation d’un défibrillateur automatisé externe, ainsi qu’une
                         sensibilisation citoyenne à l’arrêt cardiaque. Selon les arrêtés du 4/05/2007
                         et du 16/07/2010, ainsi que l’application des recommandations 2015 :

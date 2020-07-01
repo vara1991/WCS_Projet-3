@@ -101,6 +101,6 @@ class Trainer
 
     public function __toString() {
 
-        return $this->getLastname();
+        return $this->getFirstname().' '.$this->getLastname();
     }
 }
