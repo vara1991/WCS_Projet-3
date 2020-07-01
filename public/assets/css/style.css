@@ -87,6 +87,56 @@ footer{
 textarea.form-control {
     height: 200px;
 }
+/*////////ATTESTATION/////////*/
+
+.main-attestation {
+    background-image: url("https://i.postimg.cc/j28WpFrK/DAE-fond.png"), url("https://i.postimg.cc/28fBP555/cadre-attest-blanc.png");
+    background-size: 70%, cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+#body-attestation {
+    background: white;
+
+}
+
+.text-attestation {
+    padding-top: 5px;
+    font-size: 25px;
+}
+
+.title {
+    padding-top: 5px;
+    padding-bottom: 5%;
+    font-size: 70px;
+}
+
+.logo-luf {
+    width: 15%;
+    height: 220px;
+    float: left;
+}
+
+.logo-luf1 {
+    width: 60%;
+    height: 5%;
+    margin-right: 30px;
+}
+
+.stamp {
+   float: left;
+}
+
+.logo-luf2 {
+    width: 20%;
+    margin-right: 10px;
+}
+
+.p-attestation {
+    text-align: justify;
+}
 
 /* evaluation */
 .question{
