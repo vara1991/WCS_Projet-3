@@ -9,7 +9,6 @@
 /vendor/
 .idea
 .composer.lock
-/public/assets/documents/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
