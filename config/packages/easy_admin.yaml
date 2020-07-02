@@ -30,7 +30,7 @@ easy_admin:
         list:
           fields: ['id', 'is_archived', 'start_date', 'end_date', 'connection_number', 'company', 'password']
           actions:
-            - {name: 'session_register', type: 'route', icon: 'plus-square'}
+            - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
