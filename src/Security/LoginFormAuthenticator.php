@@ -96,7 +96,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('home_index'));
+        $roles = $token->getUser()->getRoles();
+        foreach ($roles as $role){
+            if ($role === "ROLE_ADMIN") {
+                return new RedirectResponse($this->urlGenerator->generate('home_index'));
+            } elseif ($role === "ROLE_SUBSCRIBER"){
+                return new RedirectResponse($this->urlGenerator->generate('participant'));
+            }
+        }
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

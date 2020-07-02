@@ -25,13 +25,13 @@ class EvalScore
     private $score;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Evaluation::class, mappedBy="eval_score")
+     * @ORM\OneToMany(targetEntity=ResponseScore::class, mappedBy="eval_score", orphanRemoval=true)
      */
-    private $evaluations;
+    private $responseScores;
 
     public function __construct()
     {
-        $this->evaluations = new ArrayCollection();
+        $this->responseScores = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,28 +52,31 @@ class EvalScore
     }
 
     /**
-     * @return Collection|Evaluation[]
+     * @return Collection|ResponseScore[]
      */
-    public function getEvaluations(): Collection
+    public function getResponseScores(): Collection
     {
-        return $this->evaluations;
+        return $this->responseScores;
     }
 
-    public function addEvaluation(Evaluation $evaluation): self
+    public function addResponseScore(ResponseScore $responseScore): self
     {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations[] = $evaluation;
-            $evaluation->addEvalScore($this);
+        if (!$this->responseScores->contains($responseScore)) {
+            $this->responseScores[] = $responseScore;
+            $responseScore->setEvalScore($this);
         }
 
         return $this;
     }
 
-    public function removeEvaluation(Evaluation $evaluation): self
+    public function removeResponseScore(ResponseScore $responseScore): self
     {
-        if ($this->evaluations->contains($evaluation)) {
-            $this->evaluations->removeElement($evaluation);
-            $evaluation->removeEvalScore($this);
+        if ($this->responseScores->contains($responseScore)) {
+            $this->responseScores->removeElement($responseScore);
+            // set the owning side to null (unless already changed)
+            if ($responseScore->getEvalScore() === $this) {
+                $responseScore->setEvalScore(null);
+            }
         }
 
         return $this;

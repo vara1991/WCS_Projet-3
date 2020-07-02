@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QCM{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 col-sm-12 col-md-7 col-lg-7">
+        <div class="card bg-light mb-5">
+            <div class="container-qcm mx-4">
+                <h2 class="text-center my-4">QCM</h2>
+                <form method="post">
+                    <div class="row mb-3">
+                        {{ question.id }}. {{ question.text }}
+                    </div>
+                    {% for response in responses|slice(3,3) %}
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="response" id="gridRadios1" value="{{ response.id }}">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        {{ response.text }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="col text-center mt-3">
+                    {% if result is defined %}
+                        <a href="{{ path('qcm_3') }}" class="btn btn-success my-3">Suivant</a>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary my-3">Valider</button>
+                    {% endif %}
+                    </div>
+                </form>
+                {% if result is defined and result == true %}
+                    <p>Bravo !</p>
+                {% elseif result is defined and result == false%}
+                    <p>Voici la bonne réponse :</p>
+                    <p>Le 15 est rattaché au SAMU.</p>
+                    <p>Le 18 est rattaché au service départemental d’incendie et de secours des pompiers.</p>
+                    <p>Le 112 est un numéro d&#39;appel d’urgence unique validé par l’Union européenne, qui ne se substitue pas aux
+                        numéros directs des services de secours locaux. La bascule se fait souvent vers le 18.</p>
+                    <p>Le 114 est une ligne d’urgence de mise en relation avec les services existants, disponibles spécifiquement pour les
+                        sourds et malentendants par SMS, smartphone ou ordinateur.</p>
+                    <p>Pour votre information complémentaire : le 911 quant à lui est un numéro d&#39;appel d’urgence unique
+                        historiquement aux USA, et largement développé dans le monde entier. En France le 911 bascule sur le 112.
+                        Aussi, les services de police et de gendarmerie sont toujours accessibles par le 17.</p>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

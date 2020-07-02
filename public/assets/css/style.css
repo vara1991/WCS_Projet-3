@@ -1,5 +1,9 @@
 body {
-    background: center center / cover no-repeat url("https://i.postimg.cc/kX2Bhz49/Capture-d-e-cran-2020-06-11-a-10-32-43.png");
+    margin:0;
+    padding:0;
+    background: url("https://i.postimg.cc/FKkrVYqZ/background.jpg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
 }
 
 .home img {
@@ -30,8 +34,123 @@ body {
     background-color: rgba(250,250,250,1);
 }
 
+.logo1 {
+    background-color: white;
+}
+
 .logo:hover .overlay {
     opacity: 1;
 }
 
+.logoNav1 {
+    width: 150px;
+    margin: 0;
+}
 
+.logoNav2 {
+    width: 80px;
+    margin: 0;
+}
+
+.logoNav3 {
+    width: 150px;
+}
+.main {
+    min-height: calc(100vh - 85px - 54px);
+}
+.col-form-label {
+    display: none;
+}
+
+.container-qcm {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.legal a {
+    text-decoration: underline;
+    color: #FFF;
+}
+.legal {
+    color: #FFF;
+    font-size: 14px;
+}
+
+.nav-title {
+    font-size: 25px;
+}
+
+footer{
+    background-color: #033f5f;
+}
+
+textarea.form-control {
+    height: 200px;
+}
+/*////////ATTESTATION/////////*/
+
+.main-attestation {
+    background-image: url("../../assets/logos/background_attestation.png");
+    background-size: 38%;
+    height: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-align: center;
+}
+
+#body-attestation {
+    background: white;
+}
+
+.text-attestation {
+    padding-top: 5px;
+}
+
+.title {
+    font-size: 40px;
+    padding-top: 160px;
+}
+
+.p-attestation {
+    text-align: justify;
+    margin-left: 10%;
+    font-size: 11px;
+}
+
+/* evaluation */
+.question{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.red{
+    color: red;
+}
+.orange{
+    color: orange;
+}
+.olive{
+    color: olive;
+}
+.green{
+    color:green;
+}
+.bold{
+    font-weight: bold;
+}
+.line{
+    line-height: 0;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .navbar {
+        flex-direction: column !important;
+    }
+    .line{
+        line-height: 1.5rem;
+    }
+    .cube {
+        order: -4;
+    }
+}

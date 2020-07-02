@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Merci{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 col-sm-12 col-md-7 col-lg-7">
+        <div class="card bg-light mb-5">
+            <div class="container-qcm mx-4">
+                <h2 class="text-center my-3">LUF/SCHILLER</h2>
+                <p>Toute l’équipe de SCHILLER France et de Learning Urgences Factory vous remercie. Bravo, vous avez finalisé votre
+                    parcours et votre attestation de formation est d’ores et déjà dans la boite de réception de l’email que vous avez
+                    inscrit. Vous avez maintenant accès à votre mémento de formation, ainsi qu’à l’ensemble de notre
+                    documentation technique et commerciale.</p>
+                <p>Vous pouvez aussi joindre notre équipe pédagogique et notre commerciale par le biais de notre formulaire de <a href="{{ path('contact') }}">contact.</a></p>
+                <div class="col text-center">
+                    <a href="{{ path('home_index') }}" class="btn btn-info my-3">Accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
