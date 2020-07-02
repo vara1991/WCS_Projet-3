@@ -1,17 +1,29 @@
 {% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/email.css')) %}
     <container>
+        <row>
+            <columns>
+                <spacer size="10"></spacer>
+                <div class="logo">
+                    <a href="{{ url('home_index') }}">
+                        <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
+                    </a>
+                    <a href="https://www.schiller.ch/fr/fr">
+                        <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
+                    </a>
+                </div>
+            </columns>
+        </row>
         <row class="welcome">
             <columns>
-                <spacer size="35"></spacer>
+                <spacer size="30"></spacer>
                 <h1>
                     <center>
                         {{ contact.firstname }} {{ contact.lastname }}
                     </center>
                 </h1>
-                <spacer size="10"></spacer>
             </columns>
         </row>
-        <spacer size="10"></spacer>
+        <spacer size="30"></spacer>
         <row>
             <columns>
                 <p>
@@ -26,21 +38,6 @@
                 <p>
                     {{ contact.message }}
                 </p>
-            </columns>
-        </row>
-        <row class="bottom">
-            <columns>
-                <center>
-                    <spacer size="20"></spacer>
-                    <div class="logo">
-                        <a href="{{ url('home_index') }}">
-                            <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
-                        </a>
-                        <a href="https://www.schiller.ch/fr/fr">
-                            <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
-                        </a>
-                    </div>
-                </center>
             </columns>
         </row>
     </container>

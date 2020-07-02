@@ -34,6 +34,9 @@ hr {
 .text-center {
     text-align: center;
 }
+.credit {
+    font-size: 12px;
+}
 table.button a {
     background-color: #264459;
 }
