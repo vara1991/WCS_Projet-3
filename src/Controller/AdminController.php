@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Session;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -14,27 +15,22 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends AbstractController
 {
     /**
-     * @Route(path = "/admin/admin/register", name = "session_register")
+     * @Route(path = "/admin/admin/register/{id}", name = "session_register")
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param Request $request
+     * @param Session $session
      * @return Response
      */
-
-    public function registerAction(UserPasswordEncoderInterface $passwordEncoder, Request $request): Response
+    public function registerAction(UserPasswordEncoderInterface $passwordEncoder, Session $session): Response
     {
-        $repository = $this->getDoctrine()->getRepository(Session::class);
-        $id = $request->query->get('id');
-        $entity = $repository->find($id);
-
         $user = new User();
         $user->setRoles(['ROLE_SUBSCRIBER']);
-        $user->setEmail($entity->getCompany()->getEmail());
-        $user->setSession($entity);
-        $user->setPassword($entity->getPassword());
+        $user->setEmail($session->getCompany()->getEmail());
+        $user->setSession($session);
+        $user->setPassword($session->getPassword());
         $user->setPassword(
             $passwordEncoder->encodePassword(
                 $user,
-                $entity->getPassword()
+                $session->getPassword()
             )
         );
         $entityManager = $this->getDoctrine()->getManager();
@@ -42,5 +38,23 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('easyadmin');
+    }
+
+    /**
+     * @Route(path = "/attestation", name = "attestation")
+     * @param Request $request
+     * @return Response
+     */
+    public function getAttestation(Request $request): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Participant::class);
+        $id = $request->query->get('id');
+        $participant = $repository->find($id);
+
+        $attestation = 'assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf';
+
+        return $this->render('pdf/attestationPdfView.html.twig', [
+            'attestation' => $attestation
+        ]);
     }
 }
