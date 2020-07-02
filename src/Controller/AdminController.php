@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ResponseQcm;
 use App\Entity\Session;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -42,5 +43,28 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('easyadmin');
+    }
+
+    /**
+     * @Route(path = "/qcm_list", name = "qcm_list")
+     * @param Request $request
+     * @return Response
+     */
+    public function getQcmList(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Session::class);
+        //$id = $request->query->get('id');
+        $session = $repository->find(1);
+        $participants = $session->getParticipants();
+
+        $responseQcms = [];
+        foreach ($participants as $participant){
+            $responseParticipant[] = $participant->getResponseQcms();
+        }
+        array_push($responseParticipant, $responseQcms);
+        return $this->render('pdf/qcmList.html.twig', [
+            'participants' => $participants,
+            'responseQcms' => $responseQcms,
+        ]);
     }
 }

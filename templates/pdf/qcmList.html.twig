@@ -1,0 +1,10 @@
+{% for participant in participants %}
+    <div>
+    {{ participant.firstname }} {{ participant.lastname }}
+    </div>
+{% endfor %}
+
+{% for responseQcm in responseQcms %}
+    {{ responseQcm }}
+    {{ dump(responseQcm) }}
+{% endfor %}

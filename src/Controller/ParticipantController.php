@@ -10,12 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\ParticipantType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ParticipantController extends AbstractController
 {
+
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(SessionInterface $sessionParticipant)
+    {
+        $this->session = $sessionParticipant;
+    }
+
     /**
      * @Route("/participant", name="participant")
      * @param Request $request
@@ -35,8 +47,10 @@ class ParticipantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
             $entityManager->flush();
+            $this->session->set('id', $participant->getId());
+            //dd($participant->getId());
 
-            $pdfOptions = new Options();
+            /*$pdfOptions = new Options();
             $pdfOptions->set('defaultFont', 'Arial');
             $dompdf = new Dompdf($pdfOptions);
             $company = $this->getUser()->getSession()->getCompany();
@@ -60,7 +74,7 @@ class ParticipantController extends AbstractController
                 ->htmlTemplate('Home/email/attestation-email.html.twig')
                 ->context(['contact' => $participant])
                 ->attachFromPath('assets/documents/attestations'.'/attestation'.$participant->getFirstname().$participant->getLastname().'.pdf');
-            $mailer->send($email);
+            $mailer->send($email);*/
 
             return $this->redirectToRoute('evaluation');
         }
