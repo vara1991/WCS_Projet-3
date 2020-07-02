@@ -1,24 +1,17 @@
 {% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/email.css')) %}
     <container>
-        <row class="header">
-            <columns>
-                <a href="{{ url('home_index') }}">
-                    <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
-                </a>
-            </columns>
-        </row>
         <row class="welcome">
             <columns>
                 <spacer size="35"></spacer>
                 <h1>
                     <center>
-                        {{ contact.firstname }} {{ contact.lastname }}
+                        {{ contact.civility }} {{ contact.firstname }} {{ contact.lastname }}
                     </center>
                 </h1>
                 <spacer size="10"></spacer>
             </columns>
         </row>
-        <spacer size="30"></spacer>
+        <spacer size="10"></spacer>
         <row>
             <columns>
                 <p>
@@ -38,9 +31,14 @@
             <columns>
                 <center>
                     <spacer size="20"></spacer>
-                    <a href="https://www.schiller.ch/fr/fr">
-                        <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
-                    </a>
+                    <div class="logo">
+                        <a href="{{ url('home_index') }}">
+                            <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
+                        </a>
+                        <a href="https://www.schiller.ch/fr/fr">
+                            <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
+                        </a>
+                    </div>
                 </center>
             </columns>
         </row>

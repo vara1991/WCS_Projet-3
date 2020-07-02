@@ -150,4 +150,7 @@ textarea.form-control {
     .line{
         line-height: 1.5rem;
     }
+    .cube {
+        order: -4;
+    }
 }
