@@ -63,7 +63,7 @@ class ParticipantController extends AbstractController
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
             $output = $dompdf->output();
-            $pdfFilepath = 'assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().'.pdf';
+            $pdfFilepath = 'assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf';
             file_put_contents($pdfFilepath, $output);
 
             $email = (new TemplatedEmail())
@@ -72,7 +72,7 @@ class ParticipantController extends AbstractController
                 ->subject('Votre attestation de formation LUF/SCHILLER')
                 ->htmlTemplate('Home/email/attestation-email.html.twig')
                 ->context(['contact' => $participant])
-                ->attachFromPath('assets/documents/attestations'.'/attestation'.$participant->getFirstname().$participant->getLastname().'.pdf');
+                ->attachFromPath('assets/documents/attestations'.'/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf');
             $mailer->send($email);
 
             return $this->redirectToRoute('evaluation');

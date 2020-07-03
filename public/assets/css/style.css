@@ -90,52 +90,32 @@ textarea.form-control {
 /*////////ATTESTATION/////////*/
 
 .main-attestation {
-    background-image: url("https://i.postimg.cc/j28WpFrK/DAE-fond.png"), url("https://i.postimg.cc/28fBP555/cadre-attest-blanc.png");
-    background-size: 70%, cover;
+    background-image: url("../../assets/logos/background_attestation.png");
+    background-size: 38%;
+    height: 90%;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     text-align: center;
 }
 
 #body-attestation {
     background: white;
-
 }
 
 .text-attestation {
     padding-top: 5px;
-    font-size: 25px;
 }
 
 .title {
-    padding-top: 5px;
-    padding-bottom: 5%;
-    font-size: 70px;
-}
-
-.logo-luf {
-    width: 15%;
-    height: 220px;
-    float: left;
-}
-
-.logo-luf1 {
-    width: 60%;
-    height: 5%;
-    margin-right: 30px;
-}
-
-.stamp {
-   float: left;
-}
-
-.logo-luf2 {
-    width: 20%;
-    margin-right: 10px;
+    font-size: 40px;
+    padding-top: 160px;
 }
 
 .p-attestation {
     text-align: justify;
+    margin-left: 10%;
+    font-size: 11px;
 }
 
 /* QCM */
@@ -187,5 +167,8 @@ textarea.form-control {
     }
     .line{
         line-height: 1.5rem;
+    }
+    .cube {
+        order: -4;
     }
 }

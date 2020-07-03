@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container mt-4 home d-flex justify-content-center">
     <div class="row my-2" style="width: 720px;">
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
+        <div class="carré-1 mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
             <a class="logo" href="https://www.schiller.ch/fr/fr/service-client" target="_blank">
                 <img class="logo1" src="assets/logos/logo-service-client.jpg"  height="200px" width="200px" alt="">
                 <div class="d-flex align-items-center justify-content-center overlay"> Notre Service Client</div>
@@ -28,14 +28,14 @@
             </a>
         </div>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+        <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
             <a class="logo" href="{{ asset('assets/documents/Memento.pdf') }}">
                 <img src="assets/images/memento/memento.jpg"  height="200px" width="200px" alt="">
                 <div class="d-flex align-items-center justify-content-center overlay">MEMENTO</div>
             </a>
         </div>
         {% else %}
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+        <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
             <a class="logo" href="{{ path('app_login') }}">
                 <img src="assets/logos/logo-votre-esp-formation-central.png"  height="200px" width="200px" alt="">
                 <div class="d-flex align-items-center justify-content-center overlay">LOGIN</div>

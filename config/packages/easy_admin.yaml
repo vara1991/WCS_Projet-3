@@ -9,7 +9,6 @@ easy_admin:
       - {entity : 'Formation', icon: 'book'}
       - {entity : 'Intervenant', icon: 'chalkboard-teacher'}
       - {entity : 'Participant', icon: 'users'}
-      - {entity : 'Certificat', icon: 'graduation-cap'}
       - {entity : 'Connexion', icon: 'user'}
 
   entities:
@@ -31,7 +30,7 @@ easy_admin:
         list:
           fields: ['id', 'is_archived', 'start_date', 'end_date', 'connection_number', 'company', 'password']
           actions:
-            - {name: 'session_register', type: 'route', icon: 'plus-square'}
+            - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
@@ -72,8 +71,9 @@ easy_admin:
       Participant:
         class: App\Entity\Participant
         list:
-          fields: ['id', 'firstname', 'lastname', 'email', 'company', 'certificate']
+          fields: ['id', 'firstname', 'lastname', 'email', 'company']
           actions:
+            - {name: 'attestation', type: 'route', icon: 'file-pdf',css_class: 'btn btn-info', target: '_blank'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
@@ -83,13 +83,6 @@ easy_admin:
             - {property: 'email'}
             - {property: 'company'}
             - {property: 'certificate'}
-
-      Certificat:
-        class: App\Entity\Certificate
-        list:
-          actions:
-            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
 
       Connexion:
         class: App\Entity\User
