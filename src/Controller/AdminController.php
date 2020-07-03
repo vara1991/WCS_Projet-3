@@ -139,18 +139,15 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route(path = "/sendAvisQcm", name = "sendAvisQcm")
+     * @Route(path = "/sendAvisQcm/{id}", name = "sendAvisQcm")
      * @param Request $request
      * @param MailerInterface $mailer
+     * @param Session $session
      * @return Response
      * @throws TransportExceptionInterface
      */
-    public function sendAvisQcm(Request $request, MailerInterface $mailer): Response
+    public function sendAvisQcm(Request $request, MailerInterface $mailer, Session $session): Response
     {
-        $repository = $this->getDoctrine()->getRepository(Session::class);
-        $id = $request->query->get('id');
-        $session = $repository->find($id);
-
         $email = (new TemplatedEmail())
             ->from('sten.quidelleur@outlook.fr')
             ->to('sten.test4php@gmail.com')
