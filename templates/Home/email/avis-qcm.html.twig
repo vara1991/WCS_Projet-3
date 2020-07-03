@@ -1,0 +1,40 @@
+{% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/email.css')) %}
+    <container>
+        <row>
+            <columns>
+                <spacer size="10"></spacer>
+                <div class="logo">
+                    <a href="{{ url('home_index') }}">
+                        <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
+                    </a>
+                    <a href="https://www.schiller.ch/fr/fr">
+                        <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
+                    </a>
+                </div>
+            </columns>
+        </row>
+        <row class="welcome">
+            <columns>
+                <spacer size="30"></spacer>
+                <h1>
+                    <center>
+                        {{ contact.company }}
+                    </center>
+                </h1>
+            </columns>
+        </row>
+        <spacer size="30"></spacer>
+        <row>
+            <columns>
+                <p>
+                    Chers participants, chers clients, chers partenaires,
+                </p>
+                <p>
+                    Toute l’équipe de SCHILLER France vous remercie vivement d’avoir participé à cette formation. Voici les avis ainsi que les réponses au QCM des participants en pièce jointe.
+                </p>
+
+                <p>Retrouver tous nos liens par le biais de notre WebApp de formation <a href="www.maformation.life">www.maformation.life</a>  : Catalogue de nos formations, Formation à distance, Le guide du défibrillateur, Les produits SCHILLER, Boutique Mediprostore, Service client, Le blog de Mediprostore.</p>
+            </columns>
+        </row>
+    </container>
+{% endapply %}

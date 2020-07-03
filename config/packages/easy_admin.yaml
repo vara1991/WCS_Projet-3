@@ -15,76 +15,77 @@ easy_admin:
       Entreprise:
           class: App\Entity\Company
           list:
-            fields: ['id', 'name', 'email']
+            fields: ['id', {property: 'name', label: 'Nom'}, 'email']
             actions:
               - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
               - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
           icon: 'address-book'
           form:
               fields:
-                - {property: 'name'}
+                - {property: 'name', label: 'Nom'}
                 - {property: 'email'}
 
       Session:
         class: App\Entity\Session
         list:
-          fields: ['id', 'is_archived', 'start_date', 'end_date', 'connection_number', 'company', 'password']
+          fields: ['id', { property: 'is_archived', label: 'Archivé'}, { property: 'start_date', label: 'Début'}, { property: 'end_date', label: 'Fin'}, { property: 'connection_number', label: 'Participant' }, 'company', 'password']
           actions:
+            - {name: 'sendAvisQcm', type: 'route', icon: 'paper-plane', label: 'Envoyer', css_class: 'btn btn-info'}
             - {name: 'evaluation_pdf', type: 'route', icon: 'file-pdf', label: 'Avis', css_class: 'btn btn-dark', target: '_blank'}
-            - {name: 'qcm_list', type: 'route', icon: 'file-pdf', label: 'Qcm', css_class: 'btn btn-dark', target: '_blank'}
+            - {name: 'qcm_list', type: 'route', icon: 'file-pdf', label: 'QCM', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
           fields:
-            - {property: 'is_archived'}
-            - {property: 'start_date'}
-            - {property: 'end_date'}
-            - {property: 'connection_number'}
+            - {property: 'is_archived', label: 'Archivé'}
+            - {property: 'start_date', label: 'Début'}
+            - {property: 'end_date', label: 'Fin'}
+            - {property: 'connection_number', label: 'Participant'}
             - {property: 'company'}
 
       Formation:
         class: App\Entity\Training
         list:
-          fields: ['id', 'title', 'face_date', 'hours', 'session', 'trainer']
+          fields: ['id', {property: 'title', label: 'Titre'}, {property: 'face_date', label: 'Date'}, {property: 'hours', label: 'Heure'}, 'session', {property: 'trainer', label: 'Formateur'}]
           actions:
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
           fields:
-            - {property: 'title'}
-            - {property: 'face_date'}
-            - {property: 'hours'}
+            - {property: 'title', label: 'Titre'}
+            - {property: 'face_date', label: 'Date'}
+            - {property: 'hours', , label: 'Heure'}
             - {property: 'session'}
-            - {property: 'trainer'}
+            - {property: 'trainer', label: 'Formateur'}
 
       Intervenant:
         class: App\Entity\Trainer
         list:
-          fields: ['id', 'firstname', 'lastname']
+          fields: ['id', {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}]
           actions:
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
           fields:
-            - {property: 'firstname'}
-            - {property: 'lastname'}
+            - {property: 'firstname', label: 'Prénom'}
+            - {property: 'lastname', label: 'Nom'}
 
       Participant:
         class: App\Entity\Participant
         list:
-          fields: ['id', 'firstname', 'lastname', 'email', 'company']
+          fields: ['id', {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}, 'email', 'company']
           actions:
             - {name: 'attestation', type: 'route', icon: 'file-pdf',css_class: 'btn btn-info', target: '_blank'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
         form:
           fields:
-            - {property: 'firstname'}
-            - {property: 'lastname'}
+            - {property: 'firstname', label: 'Prénom'}
+            - {property: 'lastname', label: 'Nom'}
             - {property: 'email'}
             - {property: 'company'}
-            - {property: 'certificate'}
+
 
       Connexion:
         class: App\Entity\User
@@ -92,4 +93,3 @@ easy_admin:
           actions:
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-
