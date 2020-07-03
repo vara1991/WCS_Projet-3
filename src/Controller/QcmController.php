@@ -30,35 +30,46 @@ class QcmController extends AbstractController
     public function qcm_1(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $entityManager = $this->getDoctrine()->getManager();
-            $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-            $responseQcm->setResponse($response[0]);
-            $participantId = $this->session->get('id');
-            $repository = $this->getDoctrine()->getRepository(Participant::class);
-            $participant = $repository->findBy(['id' => $participantId]);
-            $responseQcm->setParticipant($participant[0]);
-            $entityManager->persist($responseQcm);
-            $entityManager->flush();
+            if (!empty($_POST['response'])){
+                $entityManager = $this->getDoctrine()->getManager();
+                $responseQcm = new ResponseQcm();
+                $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+                $responseQcm->setResponse($response[0]);
+                $participantId = $this->session->get('id');
+                $repository = $this->getDoctrine()->getRepository(Participant::class);
+                $participant = $repository->findBy(['id' => $participantId]);
+                $responseQcm->setParticipant($participant[0]);
+                $entityManager->persist($responseQcm);
+                $entityManager->flush();
 
-            $result = null;
-            if ($_POST['response'] == 2){
-                $result = true;
+                $result = null;
+                if ($_POST['response'] == 2){
+                    $result = true;
+                } else {
+                    $result = false;
+                }
+
+                return $this->render('response/index.html.twig', [
+                    'result' => $result,
+                    'question' => $questionRepository->findOneById(1),
+                    'responses' => $responseRepository->findAll(),
+                    ]);
+
             } else {
-                $result = false;
-            }
-
-            return $this->render('response/index.html.twig', [
-                'result' => $result,
-                'question' => $questionRepository->findOneById(1),
-                'responses' => $responseRepository->findAll(),
+                $error = 'Veuillez sélectionner une réponse';
+                return $this->render('response/index.html.twig', [
+                    'question' => $questionRepository->findOneById(1),
+                    'responses' => $responseRepository->findAll(),
+                    'error' => $error
                 ]);
+            }
         }
-       
+
         return $this->render('response/index.html.twig', [
             'question' => $questionRepository->findOneById(1),
             'responses' => $responseRepository->findAll(),
         ]);
+
     }
 
     /**
@@ -67,6 +78,7 @@ class QcmController extends AbstractController
     public function qcm_2(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST['response'])){
             $entityManager = $this->getDoctrine()->getManager();
             $responseQcm = new ResponseQcm();
             $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
@@ -83,12 +95,22 @@ class QcmController extends AbstractController
             } else {
                 $result = false;
             }
+
             return $this->render('response/qcm2.html.twig', [
                 'result' => $result,
                 'question' => $questionRepository->findOneById(2),
                 'responses' => $responseRepository->findAll(),
             ]);
+
+        } else {
+            $error = 'Veuillez sélectionner une réponse';
+            return $this->render('response/index.html.twig', [
+                'question' => $questionRepository->findOneById(2),
+                'responses' => $responseRepository->findAll(),
+                'error' => $error
+            ]);
         }
+    }
 
         return $this->render('response/qcm2.html.twig', [
             'question' => $questionRepository->findOneById(2),
@@ -102,22 +124,33 @@ class QcmController extends AbstractController
     public function qcm_3(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $entityManager = $this->getDoctrine()->getManager();
-            $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-            $responseQcm->setResponse($response[0]);
-            $participantId = $this->session->get('id');
-            $repository = $this->getDoctrine()->getRepository(Participant::class);
-            $participant = $repository->findBy(['id' => $participantId]);
-            $responseQcm->setParticipant($participant[0]);
-            $entityManager->persist($responseQcm);
-            $entityManager->flush();
-            $result = null;
-            if ($_POST['response'] == 8){
-                $result = true;
+            if (!empty($_POST['response'])) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $responseQcm = new ResponseQcm();
+                $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+                $responseQcm->setResponse($response[0]);
+                $participantId = $this->session->get('id');
+                $repository = $this->getDoctrine()->getRepository(Participant::class);
+                $participant = $repository->findBy(['id' => $participantId]);
+                $responseQcm->setParticipant($participant[0]);
+                $entityManager->persist($responseQcm);
+                $entityManager->flush();
+                $result = null;
+
+                if ($_POST['response'] == 8) {
+                    $result = true;
+                } else {
+                    $result = false;
+                }
             } else {
-                $result = false;
+                $error = 'Veuillez sélectionner une réponse';
+                return $this->render('response/index.html.twig', [
+                    'question' => $questionRepository->findOneById(3),
+                    'responses' => $responseRepository->findAll(),
+                    'error' => $error
+                ]);
             }
+
             return $this->render('response/qcm3.html.twig', [
                 'result' => $result,
                 'question' => $questionRepository->findOneById(3),

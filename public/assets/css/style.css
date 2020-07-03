@@ -138,6 +138,24 @@ textarea.form-control {
     text-align: justify;
 }
 
+/* QCM */
+.message-qcm {
+    text-align: justify;
+}
+
+.three-questions {
+    color: red;
+  }
+
+.question-qcm {
+    font-weight: bold;
+}
+
+.qcm-error {
+    color: red;
+    font-style: italic;
+}
+
 /* evaluation */
 .question{
     text-decoration: underline;

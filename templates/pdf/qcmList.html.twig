@@ -1,10 +1,61 @@
-{% for participant in participants %}
-    <div>
-    {{ participant.firstname }} {{ participant.lastname }}
-    </div>
-{% endfor %}
 
-{% for responseQcm in responseQcms %}
-    {{ responseQcm }}
-    {{ dump(responseQcm) }}
-{% endfor %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>QCM</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Société</th>
+                    <th scope="col">Date de la formation</th>
+                    <th scope="col">Intitulé de la formation</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <td>{{ company.name }}</td>
+                    <td>{{ training.faceDate | date("d/m/Y") }}</td>
+                    <td>{{ training.title }}</td>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Participant</th>
+                        <th scope="col">QCM1*</th>
+                        <th scope="col">QCM2*</th>
+                        <th scope="col">QCM3*</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participant in participants %}
+                        <tr>
+                            <th class="scope="row">{{ participant.firstname }} {{ participant.lastname }}</th>
+                            {% for response in participant.responseQcms %}
+                                <td>{{ response.response.text }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">QCM*</th>
+                    <th scope="col">Question</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for question in questions %}
+                    <tr>
+                        <td>QCM{{ loop.index }}</td>
+                        <td>{{ question.text }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </body>
+</html>
