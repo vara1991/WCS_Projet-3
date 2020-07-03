@@ -7,7 +7,9 @@
 /public/bundles/
 /var/
 /vendor/
-/public/assets/documents
+/public/assets/documents/attestations/
+/public/assets/documents/qcm/
+/public/assets/documents/evaluation/
 .idea
 .composer.lock
 ###< symfony/framework-bundle ###
@@ -17,4 +19,3 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-/public/assets/documents/
