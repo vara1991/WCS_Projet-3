@@ -48,9 +48,8 @@ class ParticipantController extends AbstractController
             $entityManager->persist($participant);
             $entityManager->flush();
             $this->session->set('id', $participant->getId());
-            //dd($participant->getId());
 
-            /*$pdfOptions = new Options();
+            $pdfOptions = new Options();
             $pdfOptions->set('defaultFont', 'Arial');
             $dompdf = new Dompdf($pdfOptions);
             $company = $this->getUser()->getSession()->getCompany();
@@ -74,7 +73,7 @@ class ParticipantController extends AbstractController
                 ->htmlTemplate('Home/email/attestation-email.html.twig')
                 ->context(['contact' => $participant])
                 ->attachFromPath('assets/documents/attestations'.'/attestation'.$participant->getFirstname().$participant->getLastname().'.pdf');
-            $mailer->send($email);*/
+            $mailer->send($email);
 
             return $this->redirectToRoute('evaluation');
         }
