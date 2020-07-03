@@ -55,8 +55,8 @@ class AdminController extends AbstractController
     public function getQcmList(Request $request, QuestionRepository $question)
     {
         $repository = $this->getDoctrine()->getRepository(Session::class);
-        //$id = $request->query->get('id');
-        $session = $repository->find(2);
+        $id = $request->query->get('id');
+        $session = $repository->find($id);
         $participants = $session->getParticipants();
         $company = $session->getCompany();
         $training = $session->getTraining();
@@ -78,19 +78,19 @@ class AdminController extends AbstractController
         $pdfFilepath = 'assets/documents/qcm/qcm_'.$company->getName().'_session'.$session->getId().'.pdf';
         file_put_contents($pdfFilepath, $output);
 
-        return $this->render('pdf/qcmList.html.twig', [
-            'participants' => $participants,
-            'company' => $company,
-            'training' => $training,
-            'questions' => $questions
-          ]);
+        return $this->render('pdf/qcmListPdfView.html.twig', [
+            'qcmList' => $pdfFilepath,
+        ]);
     }
       
     /**
-     * @Route("/evaluation/{id}", name="evaluation_pdf")
+     * @Route("/evaluation_pdf", name="evaluation_pdf")
      */
-    public function generateEvalaution(Session $session,EvalQuestionRepository $questionsRepository, EvaluationRepository $evaluationRepository, ResponseYnRepository $responseYnRepository): Response
+    public function generateEvalaution(Request $request, EvalQuestionRepository $questionsRepository, EvaluationRepository $evaluationRepository, ResponseYnRepository $responseYnRepository): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Session::class);
+        $id = $request->query->get('id');
+        $session = $repository->find($id);
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($pdfOptions);
@@ -108,11 +108,8 @@ class AdminController extends AbstractController
         $pdfFilepath = 'assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf';
         file_put_contents($pdfFilepath, $output);
 
-        return $this->render('pdf/evaluation.html.twig',[
-            'questions' => $questionsRepository->findall(),
-            'evaluations' => $session->getTraining()->getEvaluations(),
-            'training' =>  $training,
-            'company' => $session->getCompany(),
+        return $this->render('pdf/evaluationPdfView.html.twig',[
+            'evaluation' => $pdfFilepath,
         ]);
     }
           

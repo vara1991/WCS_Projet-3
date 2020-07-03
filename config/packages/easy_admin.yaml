@@ -30,6 +30,8 @@ easy_admin:
         list:
           fields: ['id', 'is_archived', 'start_date', 'end_date', 'connection_number', 'company', 'password']
           actions:
+            - {name: 'evaluation_pdf', type: 'route', icon: 'file-pdf', label: 'Avis', css_class: 'btn btn-dark', target: '_blank'}
+            - {name: 'qcm_list', type: 'route', icon: 'file-pdf', label: 'Qcm', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
