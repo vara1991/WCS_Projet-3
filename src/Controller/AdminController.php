@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\ResponseQcm;
+use App\Repository\QuestionRepository;
 use App\Entity\Participant;
 use App\Entity\Session;
 use App\Entity\User;
@@ -45,6 +47,45 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('easyadmin');
     }
 
+    /**
+     * @Route(path = "/qcm_list", name = "qcm_list")
+     * @param Request $request
+     * @return Response
+     */
+    public function getQcmList(Request $request, QuestionRepository $question)
+    {
+        $repository = $this->getDoctrine()->getRepository(Session::class);
+        //$id = $request->query->get('id');
+        $session = $repository->find(2);
+        $participants = $session->getParticipants();
+        $company = $session->getCompany();
+        $training = $session->getTraining();
+        $questions = $question->findAll();
+
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($pdfOptions);
+        $html = $this->renderView('pdf/qcmList.html.twig', [
+            'company' => $company,
+            'participants' => $participants,
+            'training' => $training,
+            'questions' => $questions
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $output = $dompdf->output();
+        $pdfFilepath = 'assets/documents/qcm/qcm_'.$company->getName().'_session'.$session->getId().'.pdf';
+        file_put_contents($pdfFilepath, $output);
+
+        return $this->render('pdf/qcmList.html.twig', [
+            'participants' => $participants,
+            'company' => $company,
+            'training' => $training,
+            'questions' => $questions
+          ]);
+    }
+      
     /**
      * @Route("/evaluation/{id}", name="evaluation_pdf")
      */
