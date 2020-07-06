@@ -10,12 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\ParticipantType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ParticipantController extends AbstractController
 {
+
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(SessionInterface $sessionParticipant)
+    {
+        $this->session = $sessionParticipant;
+    }
+
     /**
      * @Route("/participant", name="participant")
      * @param Request $request
@@ -35,6 +47,7 @@ class ParticipantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
             $entityManager->flush();
+            $this->session->set('id', $participant->getId());
 
             $pdfOptions = new Options();
             $pdfOptions->set('defaultFont', 'Arial');

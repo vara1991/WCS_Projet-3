@@ -18,7 +18,7 @@
                 <spacer size="30"></spacer>
                 <h1>
                     <center>
-                        {{ contact.firstname }} {{ contact.lastname }}
+                        {{ contact.company }}
                     </center>
                 </h1>
             </columns>
@@ -27,17 +27,13 @@
         <row>
             <columns>
                 <p>
-                    <strong>Email</strong> : {{ contact.email }}
+                    Chers participants, chers clients, chers partenaires,
                 </p>
                 <p>
-                    <strong>Objet</strong> : {{ contact.object }}
+                    Toute l’équipe de SCHILLER France vous remercie vivement d’avoir participé à cette formation. Voici les avis ainsi que les réponses au QCM des participants en pièce jointe.
                 </p>
-                <p>
-                    Vous avez reçu un mail de <strong>{{ contact.firstname }} {{ contact.lastname }}</strong> :
-                </p>
-                <p>
-                    {{ contact.message }}
-                </p>
+
+                <p>Retrouver tous nos liens par le biais de notre WebApp de formation <a href="www.maformation.life">www.maformation.life</a>  : Catalogue de nos formations, Formation à distance, Le guide du défibrillateur, Les produits SCHILLER, Boutique Mediprostore, Service client, Le blog de Mediprostore.</p>
             </columns>
         </row>
     </container>

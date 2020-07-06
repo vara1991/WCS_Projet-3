@@ -7,6 +7,9 @@
 /public/bundles/
 /var/
 /vendor/
+/public/assets/documents/attestations/
+/public/assets/documents/qcm/
+/public/assets/documents/evaluation/
 .idea
 .composer.lock
 ###< symfony/framework-bundle ###

@@ -64,4 +64,13 @@ class HomeController extends AbstractController
     {
         return $this->render('Home/email/memento.html.twig');
     }
+
+    /**
+     * @Route("/mentions-legales", name="mentions_legales")
+     * @return Response
+     */
+    public function mentions_legales(): Response
+    {
+        return $this->render('Home/mentions_legales.html.twig');
+    }
 }
