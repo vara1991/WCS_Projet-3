@@ -28,14 +28,14 @@
             </a>
         </div>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+            <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
                 <a class="logo" href="{{ asset('assets/documents/Memento.pdf') }}">
                     <img class="logo-memento" src="assets/logos/Votre_memento_PNG.png"  height="200px" width="200px" alt="">
                     <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>MEMENTO</strong></div></div>
                 </a>
             </div>
         {% else %}
-            <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+            <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
                 <a class="logo" href="{{ path('app_login') }}">
                     <img class="logo-login" src="assets/logos/logo-votre-esp-formation-central.png"  height="200px" width="200px" alt="">
                 </a>

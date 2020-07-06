@@ -44,6 +44,8 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
+        $this->addFlash('success', 'La connexion a bien été créée l\'entreprise peut se connecter avec son email et le mot de passe à 4 chiffres créé dans session ! ');
+
 
         return $this->redirectToRoute('easyadmin');
     }
@@ -197,6 +199,7 @@ class AdminController extends AbstractController
             ->attachFromPath('assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf')
             ->attachFromPath('assets/documents/qcm/qcm_'.$session->getCompany()->getName().'_session'.$session->getId().'.pdf');
         $mailer->send($email);
+        $this->addFlash('success', 'L\'email avec les avis et les réponses au QCM a bien été envoyé à l\'entreprise ainsi qu\'à vous !');
 
         return $this->redirectToRoute('easyadmin');
     }

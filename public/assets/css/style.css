@@ -187,6 +187,7 @@ textarea.form-control {
     .logotitle {
         width: 200px;
         margin-top: -20px !important;
+    }
 
     .cube {
         order: -4;
