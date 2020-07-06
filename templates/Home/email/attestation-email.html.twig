@@ -4,11 +4,11 @@
             <columns>
                 <spacer size="10"></spacer>
                 <div class="logo">
-                    <a href="{{ url('home_index') }}">
-                        <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
-                    </a>
                     <a href="https://www.schiller.ch/fr/fr">
                         <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
+                    </a>
+                    <a href="{{ url('home_index') }}">
+                        <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
                     </a>
                 </div>
             </columns>
@@ -29,13 +29,14 @@
                 <p>
                     Chers participants, chers clients, chers partenaires,
                 </p>
+                <br>
                 <p>
                     Toute l’équipe de SCHILLER France vous remercie vivement d’avoir participé à cette formation. Voici votre attestation de suivi en pièce jointe.
                 </p>
                 <p>
-                    Consultez ou téléchargez notre memento de la formation, qui vous sera utile pour conserver en mémoire les détails les plus complets de votre formation, le temps de vous revoir prochainement lors d’un maintien de vos compétences.
+                    Consultez ou téléchargez notre mémento de la formation qui vous sera utile pour conserver en mémoire les détails les plus complets de votre formation, le temps de vous revoir prochainement lors d’un maintien de vos compétences.
+                    Votre <a class="btn btn-success" href="{{ url('memento') }}">MÉMENTO</a>
                 </p>
-                <p> Votre <a class="btn btn-success" href="{{ url('memento') }}">MEMENTO</a></p>
                 <p>Retrouver tous nos liens par le biais de notre WebApp de formation <a href="www.maformation.life">www.maformation.life</a>  : Catalogue de nos formations, Formation à distance, Le guide du défibrillateur, Les produits SCHILLER, Boutique Mediprostore, Service client, Le blog de Mediprostore.</p>
             </columns>
         </row>

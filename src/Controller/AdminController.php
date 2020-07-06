@@ -143,11 +143,51 @@ class AdminController extends AbstractController
      * @param Request $request
      * @param MailerInterface $mailer
      * @param Session $session
+     * @param QuestionRepository $question
+     * @param EvalQuestionRepository $questionsRepository
      * @return Response
      * @throws TransportExceptionInterface
      */
-    public function sendAvisQcm(Request $request, MailerInterface $mailer, Session $session): Response
+    public function sendAvisQcm(Request $request, MailerInterface $mailer, Session $session, QuestionRepository $question, EvalQuestionRepository $questionsRepository): Response
     {
+        $participants = $session->getParticipants();
+        $company = $session->getCompany();
+        $training = $session->getTraining();
+        $questions = $question->findAll();
+        // PDF QCM list
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($pdfOptions);
+        $html = $this->renderView('pdf/qcmList.html.twig', [
+            'company' => $company,
+            'participants' => $participants,
+            'training' => $training,
+            'questions' => $questions
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $output = $dompdf->output();
+        $pdfFilepath = 'assets/documents/qcm/qcm_'.$company->getName().'_session'.$session->getId().'.pdf';
+        file_put_contents($pdfFilepath, $output);
+        // PDF Evaluation list
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($pdfOptions);
+        $training = $session->getTraining();
+        $html = $this->renderView('pdf/evaluation.html.twig',[
+            'questions' => $questionsRepository->findall(),
+            'training' =>  $training,
+            'evaluations' => $training->getEvaluations(),
+            'company' => $session->getCompany(),
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $output = $dompdf->output();
+        $pdfFilepath = 'assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf';
+        file_put_contents($pdfFilepath, $output);
+
         $email = (new TemplatedEmail())
             ->from('sten.quidelleur@outlook.fr')
             ->to('sten.test4php@gmail.com')
@@ -160,6 +200,4 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('easyadmin');
     }
-
-
 }
