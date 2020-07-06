@@ -46,7 +46,7 @@ class HomeController extends AbstractController
                 ->htmlTemplate('Home/email/notification.html.twig')
                 ->context(['contact' => $contact]);
             $mailer->send($email);
-            $this->addFlash('success', 'Votre mail à bien été envoyé !');
+            $this->addFlash('success', 'Votre mail a bien été envoyé !');
 
             return $this->redirectToRoute('home_index');
         }
