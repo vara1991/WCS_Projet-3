@@ -102,6 +102,13 @@ footer{
 textarea.form-control {
     height: 200px;
 }
+
+.cube img:hover {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    transition-duration: 1s;
+}
+
 /*////////ATTESTATION/////////*/
 
 .main-attestation {
