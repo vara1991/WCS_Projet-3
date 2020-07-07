@@ -22,7 +22,7 @@ class Session
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_archived;
+    private $is_archived = false;
 
     /**
      * @ORM\Column(type="string", length=255)
