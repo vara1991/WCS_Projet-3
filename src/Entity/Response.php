@@ -29,6 +29,11 @@ class Response
      */
     private $responseQcms;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $number;
+
     public function __construct()
     {
         $this->responseQcms = new ArrayCollection();
@@ -78,6 +83,18 @@ class Response
                 $responseQcm->setResponse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(?int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

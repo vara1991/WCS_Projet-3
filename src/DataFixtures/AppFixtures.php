@@ -88,19 +88,20 @@ class AppFixtures extends Fixture
             $manager->persist($quesQCM);
         }
 
-        $response = ['Elle tousse.',
-                    'Elle ne respire pas et ne bouge pas.',
-                    'Elle répond de façon complètement incohérente aux questions.',
-                    '15 ; 18 ; 112 ; (114)',
-                    '13 ; 14 ; 15',
-                    '12 ; 17 ; 218',
-                    'Le défibrillateur remplace le massage cardiaque dès sa mise en place.',
-                    'Le massage cardiaque doit être débuté avant l’arrivée du défibrillateur, et maintenu durant la réanimation en suivant les consignes du défibrillateur.',
-                    'Le massage cardiaque se pratique en appuyant doucement et lentement sur le côté de la poitrine, et le défibrillateur devra être retiré durant le massage.'
+        $response = ['Elle tousse.' => 1,
+                    'Elle ne respire pas et ne bouge pas.' => 2,
+                    'Elle répond de façon complètement incohérente aux questions.' => 3,
+                    '15 ; 18 ; 112 ; (114)' => 4,
+                    '13 ; 14 ; 15' => 5,
+                    '12 ; 17 ; 218' => 6,
+                    'Le défibrillateur remplace le massage cardiaque dès sa mise en place.' => 7,
+                    'Le massage cardiaque doit être débuté avant l’arrivée du défibrillateur, et maintenu durant la réanimation en suivant les consignes du défibrillateur.' => 8,
+                    'Le massage cardiaque se pratique en appuyant doucement et lentement sur le côté de la poitrine, et le défibrillateur devra être retiré durant le massage.' => 9
         ];
-        foreach ($response as $item) {
+        foreach ($response as $item => $number) {
             $resp = new Response();
             $resp->setText($item);
+            $resp->setNumber($number);
             $manager->persist($resp);
         }
 

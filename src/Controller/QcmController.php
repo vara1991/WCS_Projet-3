@@ -33,7 +33,7 @@ class QcmController extends AbstractController
             if (!empty($_POST['response'])){
                 $entityManager = $this->getDoctrine()->getManager();
                 $responseQcm = new ResponseQcm();
-                $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+                $response = $entityManager->getRepository(Response::class)->findBy(['number' => $_POST['response']]);
                 $responseQcm->setResponse($response[0]);
                 $participantId = $this->session->get('id');
                 $repository = $this->getDoctrine()->getRepository(Participant::class);
@@ -81,7 +81,7 @@ class QcmController extends AbstractController
             if (!empty($_POST['response'])){
             $entityManager = $this->getDoctrine()->getManager();
             $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+            $response = $entityManager->getRepository(Response::class)->findBy(['number' => $_POST['response']]);
             $responseQcm->setResponse($response[0]);
             $participantId = $this->session->get('id');
             $repository = $this->getDoctrine()->getRepository(Participant::class);
@@ -89,6 +89,7 @@ class QcmController extends AbstractController
             $responseQcm->setParticipant($participant[0]);
             $entityManager->persist($responseQcm);
             $entityManager->flush();
+
             $result = null;
             if ($_POST['response'] == 4){
                 $result = true;
@@ -127,7 +128,7 @@ class QcmController extends AbstractController
             if (!empty($_POST['response'])) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $responseQcm = new ResponseQcm();
-                $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
+                $response = $entityManager->getRepository(Response::class)->findBy(['number' => $_POST['response']]);
                 $responseQcm->setResponse($response[0]);
                 $participantId = $this->session->get('id');
                 $repository = $this->getDoctrine()->getRepository(Participant::class);
@@ -135,8 +136,8 @@ class QcmController extends AbstractController
                 $responseQcm->setParticipant($participant[0]);
                 $entityManager->persist($responseQcm);
                 $entityManager->flush();
-                $result = null;
 
+                $result = null;
                 if ($_POST['response'] == 8) {
                     $result = true;
                 } else {
