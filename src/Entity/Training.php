@@ -49,15 +49,9 @@ class Training
      */
     private $evaluations;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Certificate::class, mappedBy="training")
-     */
-    private $certificates;
-
     public function __construct()
     {
         $this->evaluations = new ArrayCollection();
-        $this->certificates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,37 +144,6 @@ class Training
             // set the owning side to null (unless already changed)
             if ($evaluation->getTraining() === $this) {
                 $evaluation->setTraining(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Certificate[]
-     */
-    public function getCertificates(): Collection
-    {
-        return $this->certificates;
-    }
-
-    public function addCertificate(Certificate $certificate): self
-    {
-        if (!$this->certificates->contains($certificate)) {
-            $this->certificates[] = $certificate;
-            $certificate->setTraining($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCertificate(Certificate $certificate): self
-    {
-        if ($this->certificates->contains($certificate)) {
-            $this->certificates->removeElement($certificate);
-            // set the owning side to null (unless already changed)
-            if ($certificate->getTraining() === $this) {
-                $certificate->setTraining(null);
             }
         }
 

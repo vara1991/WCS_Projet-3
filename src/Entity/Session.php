@@ -56,27 +56,20 @@ class Session
     private $training;
 
     /**
-     * @ORM\OneToMany(targetEntity=Certificate::class, mappedBy="session")
-     */
-    private $certificates;
-
-    /**
      * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="session")
      */
     private $participants;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="session")
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="session")
      */
     private $user;
 
     public function __construct()
     {
         $password = substr(str_shuffle('0123456789'),0,4);
-        $this->certificates = new ArrayCollection();
         $this->participants = new ArrayCollection();
         $this->setPassword($password);
-        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,37 +168,6 @@ class Session
     }
 
     /**
-     * @return Collection|Certificate[]
-     */
-    public function getCertificates(): Collection
-    {
-        return $this->certificates;
-    }
-
-    public function addCertificate(Certificate $certificate): self
-    {
-        if (!$this->certificates->contains($certificate)) {
-            $this->certificates[] = $certificate;
-            $certificate->setSession($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCertificate(Certificate $certificate): self
-    {
-        if ($this->certificates->contains($certificate)) {
-            $this->certificates->removeElement($certificate);
-            // set the owning side to null (unless already changed)
-            if ($certificate->getSession() === $this) {
-                $certificate->setSession(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Participant[]
      */
     public function getParticipants(): Collection
@@ -241,33 +203,14 @@ class Session
         return $this->getCompany()->getName();
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->setSession($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getSession() === $this) {
-                $user->setSession(null);
-            }
-        }
+        $this->user = $user;
 
         return $this;
     }

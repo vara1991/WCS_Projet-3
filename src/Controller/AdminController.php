@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\EvalQuestionRepository;
 use App\Repository\EvaluationRepository;
 use App\Repository\ResponseYnRepository;
+use App\Repository\UserRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -44,7 +45,7 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        $this->addFlash('success', 'La connexion a bien été créée l\'entreprise peut se connecter avec son email et le mot de passe à 4 chiffres créé dans session ! ');
+        $this->addFlash('success', 'La connexion a bien été créée, l\'entreprise peut se connecter avec son email et le mot de passe à 4 chiffres créé dans session ! ');
 
 
         return $this->redirectToRoute('easyadmin');
@@ -141,23 +142,22 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route(path = "/sendAvisQcm/{id}", name = "sendAvisQcm")
-     * @param Request $request
-     * @param MailerInterface $mailer
+     * @Route(path = "/archived/{id}", name = "archived")
      * @param Session $session
      * @param QuestionRepository $question
      * @param EvalQuestionRepository $questionsRepository
+     * @param MailerInterface $mailer
+     * @param UserRepository $userRepository
      * @return Response
-     * @throws TransportExceptionInterface
      */
-    public function sendAvisQcm(Request $request, MailerInterface $mailer, Session $session, QuestionRepository $question, EvalQuestionRepository $questionsRepository): Response
+    public function archived(Session $session, QuestionRepository $question,  EvalQuestionRepository $questionsRepository, MailerInterface $mailer, UserRepository $userRepository):Response
     {
         $participants = $session->getParticipants();
         $company = $session->getCompany();
         $training = $session->getTraining();
         $questions = $question->findAll();
         // PDF QCM list
-        $pdfOptions = new Options();
+        /*$pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($pdfOptions);
         $html = $this->renderView('pdf/qcmList.html.twig', [
@@ -170,16 +170,16 @@ class AdminController extends AbstractController
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $output = $dompdf->output();
-        $pdfFilepath = 'assets/documents/qcm/qcm_'.$company->getName().'_session'.$session->getId().'.pdf';
+        $pdfFilepath = 'assets/documents/qcm/qcm_' . $company->getName() . '_session' . $session->getId() . '.pdf';
         file_put_contents($pdfFilepath, $output);
         // PDF Evaluation list
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($pdfOptions);
         $training = $session->getTraining();
-        $html = $this->renderView('pdf/evaluation.html.twig',[
+        $html = $this->renderView('pdf/evaluation.html.twig', [
             'questions' => $questionsRepository->findall(),
-            'training' =>  $training,
+            'training' => $training,
             'evaluations' => $training->getEvaluations(),
             'company' => $session->getCompany(),
         ]);
@@ -187,7 +187,7 @@ class AdminController extends AbstractController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $output = $dompdf->output();
-        $pdfFilepath = 'assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf';
+        $pdfFilepath = 'assets/documents/evaluation/evaluation' . $session->getCompany()->getName() . $session->getId() . '.pdf';
         file_put_contents($pdfFilepath, $output);
 
         $email = (new TemplatedEmail())
@@ -196,10 +196,25 @@ class AdminController extends AbstractController
             ->subject('Avis et QCM de formation LUF/SCHILLER')
             ->htmlTemplate('Home/email/avis-qcm.html.twig')
             ->context(['contact' => $session])
-            ->attachFromPath('assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf')
-            ->attachFromPath('assets/documents/qcm/qcm_'.$session->getCompany()->getName().'_session'.$session->getId().'.pdf');
-        $mailer->send($email);
-        $this->addFlash('success', 'L\'email avec les avis et les réponses au QCM a bien été envoyé à l\'entreprise ainsi qu\'à vous !');
+            ->attachFromPath('assets/documents/evaluation/evaluation' . $session->getCompany()->getName() . $session->getId() . '.pdf')
+            ->attachFromPath('assets/documents/qcm/qcm_' . $session->getCompany()->getName() . '_session' . $session->getId() . '.pdf');
+        $mailer->send($email);*/
+        //$this->addFlash('success', 'L\'email avec les avis et les réponses au QCM a bien été envoyé à l\'entreprise ainsi qu\'à vous !');
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($participants as $participant) {
+            $participant->setFirstname('XXX');
+            $participant->setLastname('XXX');
+            $participant->setEmail('xxx@xxx.xxx');
+            $em->persist($participant);
+        }
+        $user = $userRepository->findOneBy(['id' => $session->getUser()]);
+        $session->setUser(null);
+        $session->setIsArchived(true);
+        $em->remove($user);
+
+
+        $em->flush();
 
         return $this->redirectToRoute('easyadmin');
     }
