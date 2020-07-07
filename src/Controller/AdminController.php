@@ -62,64 +62,29 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Session::class);
         $id = $request->query->get('id');
         $session = $repository->find($id);
-        $participants = $session->getParticipants();
-        $company = $session->getCompany();
-        $training = $session->getTraining();
-        $questions = $question->findAll();
 
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $dompdf = new Dompdf($pdfOptions);
-        $html = $this->renderView('pdf/qcmList.html.twig', [
-            'company' => $company,
-            'participants' => $participants,
-            'training' => $training,
-            'questions' => $questions
-        ]);
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-        $output = $dompdf->output();
-        $pdfFilepath = 'assets/documents/qcm/qcm_'.$company->getName().'_session'.$session->getId().'.pdf';
-        file_put_contents($pdfFilepath, $output);
+        $pdfQCM = 'assets/documents/qcm/qcm_'.$session->getCompany()->getName().'_session'.$session->getId().'.pdf';
 
         return $this->render('pdf/qcmListPdfView.html.twig', [
-            'qcmList' => $pdfFilepath,
+            'qcmList' => $pdfQCM,
         ]);
     }
 
     /**
      * @Route("/evaluation_pdf", name="evaluation_pdf")
      * @param Request $request
-     * @param EvalQuestionRepository $questionsRepository
-     * @param EvaluationRepository $evaluationRepository
-     * @param ResponseYnRepository $responseYnRepository
      * @return Response
      */
-    public function generateEvalaution(Request $request, EvalQuestionRepository $questionsRepository, EvaluationRepository $evaluationRepository, ResponseYnRepository $responseYnRepository): Response
+    public function pdfEvalaution(Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(Session::class);
         $id = $request->query->get('id');
         $session = $repository->find($id);
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $dompdf = new Dompdf($pdfOptions);
-        $training = $session->getTraining();
-        $html = $this->renderView('pdf/evaluation.html.twig',[
-            'questions' => $questionsRepository->findall(),
-            'training' =>  $training,
-            'evaluations' => $training->getEvaluations(),
-            'company' => $session->getCompany(),
-        ]);
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-        $output = $dompdf->output();
-        $pdfFilepath = 'assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf';
-        file_put_contents($pdfFilepath, $output);
+
+        $pdfEvaluation = 'assets/documents/evaluation/evaluation'.$session->getCompany()->getName().$session->getId().'.pdf';
 
         return $this->render('pdf/evaluationPdfView.html.twig',[
-            'evaluation' => $pdfFilepath,
+            'evaluation' => $pdfEvaluation,
         ]);
     }
           
@@ -148,6 +113,7 @@ class AdminController extends AbstractController
      * @param EvalQuestionRepository $questionsRepository
      * @param MailerInterface $mailer
      * @param UserRepository $userRepository
+     * @throws TransportExceptionInterface
      * @return Response
      */
     public function archived(Session $session, QuestionRepository $question,  EvalQuestionRepository $questionsRepository, MailerInterface $mailer, UserRepository $userRepository):Response
@@ -157,7 +123,7 @@ class AdminController extends AbstractController
         $training = $session->getTraining();
         $questions = $question->findAll();
         // PDF QCM list
-        /*$pdfOptions = new Options();
+        $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($pdfOptions);
         $html = $this->renderView('pdf/qcmList.html.twig', [
@@ -198,8 +164,7 @@ class AdminController extends AbstractController
             ->context(['contact' => $session])
             ->attachFromPath('assets/documents/evaluation/evaluation' . $session->getCompany()->getName() . $session->getId() . '.pdf')
             ->attachFromPath('assets/documents/qcm/qcm_' . $session->getCompany()->getName() . '_session' . $session->getId() . '.pdf');
-        $mailer->send($email);*/
-        //$this->addFlash('success', 'L\'email avec les avis et les réponses au QCM a bien été envoyé à l\'entreprise ainsi qu\'à vous !');
+        $mailer->send($email);
 
         $em = $this->getDoctrine()->getManager();
         foreach ($participants as $participant) {
@@ -213,8 +178,8 @@ class AdminController extends AbstractController
         $session->setIsArchived(true);
         $em->remove($user);
 
-
         $em->flush();
+        $this->addFlash('success', 'La session a bien été archivée et un email avec les avis et les réponses au QCM a bien été envoyé à l\'entreprise ainsi qu\'à vous !');
 
         return $this->redirectToRoute('easyadmin');
     }

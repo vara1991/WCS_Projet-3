@@ -15,7 +15,10 @@ easy_admin:
       Entreprise:
           class: App\Entity\Company
           list:
-            fields: ['id', {property: 'name', label: 'Nom'}, 'email']
+            fields:
+              - id
+              - {property: 'name', label: 'Nom'}
+              - email
             actions:
               - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
               - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
@@ -28,17 +31,23 @@ easy_admin:
       Session:
         class: App\Entity\Session
         list:
-          fields: ['id', { property: 'is_archived', label: 'Archivé'}, { property: 'start_date', label: 'Début'}, { property: 'end_date', label: 'Fin'}, { property: 'connection_number', label: 'Participant' }, 'company', 'password']
+          fields:
+            - id
+            - { property: 'is_archived', label: 'Archivé', type: 'boolean'}
+            - { property: 'start_date', label: 'Début'}
+            - { property: 'end_date', label: 'Fin'}
+            - { property: 'connection_number', label: 'Participant' }
+            - company
+            - password
           actions:
-            - {name: 'archived', type: 'route', icon: 'archive', label: 'archiver', css_class: 'btn btn-danger'}
+            - {name: 'archived', type: 'route', icon: 'archive', label: 'archiver', css_class: 'btn btn-info'}
             - {name: 'evaluation_pdf', type: 'route', icon: 'file-pdf', label: 'Avis', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'qcm_list', type: 'route', icon: 'file-pdf', label: 'QCM', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            - -delete
         form:
           fields:
-            - {property: 'is_archived', label: 'Archivé'}
             - {property: 'start_date', label: 'Début'}
             - {property: 'end_date', label: 'Fin'}
             - {property: 'connection_number', label: 'Participant'}
@@ -49,7 +58,13 @@ easy_admin:
       Formation:
         class: App\Entity\Training
         list:
-          fields: ['id', {property: 'title', label: 'Titre'}, {property: 'face_date', label: 'Date'}, {property: 'hours', label: 'Heure'}, 'session', {property: 'trainer', label: 'Formateur'}]
+          fields:
+            - id
+            - {property: 'title', label: 'Titre'}
+            - {property: 'face_date', label: 'Date'}
+            - {property: 'hours', label: 'Heure'}
+            - session
+            - {property: 'trainer', label: 'Formateur'}
           actions:
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
@@ -66,7 +81,10 @@ easy_admin:
       Intervenant:
         class: App\Entity\Trainer
         list:
-          fields: ['id', {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}]
+          fields:
+            - id
+            - {property: 'firstname', label: 'Prénom'}
+            - {property: 'lastname', label: 'Nom'}
           actions:
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
@@ -78,7 +96,12 @@ easy_admin:
       Participant:
         class: App\Entity\Participant
         list:
-          fields: ['id', {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}, 'email', 'company']
+          fields:
+          - id
+          - {property: 'firstname', label: 'Prénom'}
+          - {property: 'lastname', label: 'Nom'}
+          - email
+          - company
           actions:
             - {name: 'attestation', type: 'route', icon: 'file-pdf',css_class: 'btn btn-info', target: '_blank'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
@@ -97,5 +120,5 @@ easy_admin:
         class: App\Entity\User
         list:
           actions:
-            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            - -edit
+            - -delete
