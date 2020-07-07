@@ -30,7 +30,7 @@ easy_admin:
         list:
           fields: ['id', { property: 'is_archived', label: 'Archivé'}, { property: 'start_date', label: 'Début'}, { property: 'end_date', label: 'Fin'}, { property: 'connection_number', label: 'Participant' }, 'company', 'password']
           actions:
-            - {name: 'sendAvisQcm', type: 'route', icon: 'paper-plane', label: 'Envoyer', css_class: 'btn btn-info'}
+            - {name: 'archived', type: 'route', icon: 'archive', label: 'archiver', css_class: 'btn btn-danger'}
             - {name: 'evaluation_pdf', type: 'route', icon: 'file-pdf', label: 'Avis', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'qcm_list', type: 'route', icon: 'file-pdf', label: 'QCM', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
@@ -43,6 +43,8 @@ easy_admin:
             - {property: 'end_date', label: 'Fin'}
             - {property: 'connection_number', label: 'Participant'}
             - {property: 'company'}
+        search:
+          fields: ['company']
 
       Formation:
         class: App\Entity\Training
@@ -58,6 +60,8 @@ easy_admin:
             - {property: 'hours', , label: 'Heure'}
             - {property: 'session'}
             - {property: 'trainer', label: 'Formateur'}
+        search:
+          fields: ['title', 'session', 'trainer']
 
       Intervenant:
         class: App\Entity\Trainer
@@ -79,13 +83,15 @@ easy_admin:
             - {name: 'attestation', type: 'route', icon: 'file-pdf',css_class: 'btn btn-info', target: '_blank'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+          dql_filter: "entity.firstname != 'xxx'"
         form:
           fields:
             - {property: 'firstname', label: 'Prénom'}
             - {property: 'lastname', label: 'Nom'}
             - {property: 'email'}
             - {property: 'company'}
-
+        search:
+          fields: ['firstname', 'lastname', 'email','company']
 
       Connexion:
         class: App\Entity\User
