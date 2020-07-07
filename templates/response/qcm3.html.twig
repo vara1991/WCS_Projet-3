@@ -13,7 +13,9 @@
                     sentiment d’utilité pour chacun.</p>
                 <form method="post">
                     <div class="row mb-3 mt-5 question-qcm">
-                        <p>3. {{ question.text }}</p>
+                        {% for question in questions|slice(2,1) %}
+                            <p>3. {{ question.text }}</p>
+                        {% endfor %}
                     </div>
                     {% for response in responses|slice(6,3) %}
                         <div class="row mb-2">
@@ -27,6 +29,11 @@
                             </div>
                         </div>
                     {% endfor %}
+                    <div class="qcm-error mt-3">
+                        {% if error is defined %}
+                            {{ error }}
+                        {% endif %}
+                    </div>
                     <div class="col text-center mt-3">
                     {% if result is defined %}
                         <a href="{{ path('qcm_end') }}" class="btn btn-success my-3">Suivant</a>

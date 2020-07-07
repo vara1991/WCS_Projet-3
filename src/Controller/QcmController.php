@@ -51,14 +51,14 @@ class QcmController extends AbstractController
 
                 return $this->render('response/index.html.twig', [
                     'result' => $result,
-                    'question' => $questionRepository->findOneById(1),
+                    'questions' => $questionRepository->findAll(),
                     'responses' => $responseRepository->findAll(),
                     ]);
 
             } else {
                 $error = 'Veuillez sélectionner une réponse';
                 return $this->render('response/index.html.twig', [
-                    'question' => $questionRepository->findOneById(1),
+                    'questions' => $questionRepository->findAll(),
                     'responses' => $responseRepository->findAll(),
                     'error' => $error
                 ]);
@@ -66,7 +66,7 @@ class QcmController extends AbstractController
         }
 
         return $this->render('response/index.html.twig', [
-            'question' => $questionRepository->findOneById(1),
+            'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
         ]);
 
@@ -99,14 +99,14 @@ class QcmController extends AbstractController
 
             return $this->render('response/qcm2.html.twig', [
                 'result' => $result,
-                'question' => $questionRepository->findOneById(2),
+                'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
             ]);
 
         } else {
             $error = 'Veuillez sélectionner une réponse';
-            return $this->render('response/index.html.twig', [
-                'question' => $questionRepository->findOneById(2),
+            return $this->render('response/qcm2.html.twig', [
+                'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
                 'error' => $error
             ]);
@@ -114,7 +114,7 @@ class QcmController extends AbstractController
     }
 
         return $this->render('response/qcm2.html.twig', [
-            'question' => $questionRepository->findOneById(2),
+            'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
         ]);
     }
@@ -145,8 +145,8 @@ class QcmController extends AbstractController
                 }
             } else {
                 $error = 'Veuillez sélectionner une réponse';
-                return $this->render('response/index.html.twig', [
-                    'question' => $questionRepository->findOneById(3),
+                return $this->render('response/qcm3.html.twig', [
+                    'questions' => $questionRepository->findAll(),
                     'responses' => $responseRepository->findAll(),
                     'error' => $error
                 ]);
@@ -154,13 +154,13 @@ class QcmController extends AbstractController
 
             return $this->render('response/qcm3.html.twig', [
                 'result' => $result,
-                'question' => $questionRepository->findOneById(3),
+                'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
             ]);
         }
 
         return $this->render('response/qcm3.html.twig', [
-            'question' => $questionRepository->findOneById(3),
+            'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
         ]);
     }
