@@ -20,6 +20,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class AdminController extends AbstractController
 {
@@ -152,6 +153,7 @@ class AdminController extends AbstractController
      */
     public function archived(Session $session, QuestionRepository $question,  EvalQuestionRepository $questionsRepository, MailerInterface $mailer, UserRepository $userRepository):Response
     {
+        $filesystem = new Filesystem();
         $participants = $session->getParticipants();
         $company = $session->getCompany();
         $training = $session->getTraining();
@@ -203,17 +205,17 @@ class AdminController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         foreach ($participants as $participant) {
+            $filesystem->remove(['assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf']);
             $participant->setFirstname('XXX');
             $participant->setLastname('XXX');
             $participant->setEmail('xxx@xxx.xxx');
+            $participant->setIsArchived(true);
             $em->persist($participant);
         }
         $user = $userRepository->findOneBy(['id' => $session->getUser()]);
         $session->setUser(null);
         $session->setIsArchived(true);
         $em->remove($user);
-
-
         $em->flush();
 
         return $this->redirectToRoute('easyadmin');
