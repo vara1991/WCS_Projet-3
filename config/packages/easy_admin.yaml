@@ -106,7 +106,7 @@ easy_admin:
             - {name: 'attestation', type: 'route', icon: 'file-pdf',css_class: 'btn btn-info', target: '_blank'}
             - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-          dql_filter: "entity.firstname != 'xxx'"
+          dql_filter: "entity.is_archived = 'true'"
         form:
           fields:
             - {property: 'firstname', label: 'Prénom'}
