@@ -48,8 +48,7 @@ class AdminController extends AbstractController
         $entityManager->flush();
         $this->addFlash('success', 'La connexion a bien été créée, l\'entreprise peut se connecter avec son email et le mot de passe à 4 chiffres créé dans session ! ');
 
-
-        return $this->redirectToRoute('easyadmin');
+        return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Session']);
     }
 
     /**
@@ -185,6 +184,6 @@ class AdminController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'La session a bien été archivée et un email avec les avis et les réponses au QCM a bien été envoyé à l\'entreprise ainsi qu\'à vous !');
 
-        return $this->redirectToRoute('easyadmin');
+        return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Session']);
     }
 }

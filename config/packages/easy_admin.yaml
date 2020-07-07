@@ -20,13 +20,16 @@ easy_admin:
               - {property: 'name', label: 'Nom'}
               - email
             actions:
-              - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
               - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+              - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-warning'}
           icon: 'address-book'
           form:
               fields:
                 - {property: 'name', label: 'Nom'}
                 - {property: 'email'}
+          edit:
+            actions:
+              - -delete
 
       Session:
         class: App\Entity\Session
@@ -43,8 +46,8 @@ easy_admin:
             - {name: 'archived', type: 'route', icon: 'archive', label: 'archiver', css_class: 'btn btn-info'}
             - {name: 'evaluation_pdf', type: 'route', icon: 'file-pdf', label: 'Avis', css_class: 'btn btn-dark', target: '_blank'}
             - {name: 'qcm_list', type: 'route', icon: 'file-pdf', label: 'QCM', css_class: 'btn btn-dark', target: '_blank'}
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-warning'}
             - {name: 'session_register', type: 'route', icon: 'plus-square', label: 'Register', css_class: 'btn btn-success'}
-            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - -delete
         form:
           fields:
@@ -66,8 +69,8 @@ easy_admin:
             - session
             - {property: 'trainer', label: 'Formateur'}
           actions:
-            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-warning'}
+            - -delete
         form:
           fields:
             - {property: 'title', label: 'Titre'}
@@ -77,6 +80,9 @@ easy_admin:
             - {property: 'trainer', label: 'Formateur'}
         search:
           fields: ['title', 'session', 'trainer']
+        edit:
+          actions:
+            - -delete
 
       Intervenant:
         class: App\Entity\Trainer
@@ -86,14 +92,18 @@ easy_admin:
             - {property: 'firstname', label: 'Prénom'}
             - {property: 'lastname', label: 'Nom'}
           actions:
-            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
             - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-warning'}
         form:
           fields:
             - {property: 'firstname', label: 'Prénom'}
             - {property: 'lastname', label: 'Nom'}
+        edit:
+          actions:
+            - -delete
 
       Participant:
+        disabled_actions: ['new']
         class: App\Entity\Participant
         list:
           fields:
@@ -104,8 +114,8 @@ easy_admin:
           - company
           actions:
             - {name: 'attestation', type: 'route', icon: 'file-pdf',css_class: 'btn btn-info', target: '_blank'}
-            - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-            - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            - -edit
+            - -delete
           dql_filter: "entity.is_archived = 'true'"
         form:
           fields:
@@ -117,6 +127,7 @@ easy_admin:
           fields: ['firstname', 'lastname', 'email','company']
 
       Connexion:
+        disabled_actions: ['new']
         class: App\Entity\User
         list:
           actions:
