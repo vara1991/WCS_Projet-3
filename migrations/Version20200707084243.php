@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200706153343 extends AbstractMigration
+final class Version20200707084243 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -28,7 +28,7 @@ final class Version20200706153343 extends AbstractMigration
         $this->addSql('CREATE TABLE evaluation (id INT AUTO_INCREMENT NOT NULL, training_id INT NOT NULL, company_id INT NOT NULL, name VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, global_score INT NOT NULL, comment LONGTEXT DEFAULT NULL, INDEX IDX_1323A575BEFD98D1 (training_id), INDEX IDX_1323A575979B1AD6 (company_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE participant (id INT AUTO_INCREMENT NOT NULL, company_id INT DEFAULT NULL, session_id INT NOT NULL, evaluation_id INT DEFAULT NULL, civility_id INT NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, INDEX IDX_D79F6B11979B1AD6 (company_id), INDEX IDX_D79F6B11613FECDF (session_id), UNIQUE INDEX UNIQ_D79F6B11456C5646 (evaluation_id), INDEX IDX_D79F6B1123D6A298 (civility_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE question (id INT AUTO_INCREMENT NOT NULL, text LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE response (id INT AUTO_INCREMENT NOT NULL, text LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE response (id INT AUTO_INCREMENT NOT NULL, text LONGTEXT NOT NULL, number INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE response_qcm (id INT AUTO_INCREMENT NOT NULL, participant_id INT NOT NULL, response_id INT NOT NULL, INDEX IDX_CA5224DF9D1C3019 (participant_id), INDEX IDX_CA5224DFFBF32840 (response_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE response_score (id INT AUTO_INCREMENT NOT NULL, evaluation_id INT NOT NULL, eval_score_id INT NOT NULL, INDEX IDX_22EFEC01456C5646 (evaluation_id), INDEX IDX_22EFEC01577CFD42 (eval_score_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE response_yn (id INT AUTO_INCREMENT NOT NULL, evaluation_id INT NOT NULL, eval_yn_id INT NOT NULL, INDEX IDX_51E4D30F456C5646 (evaluation_id), INDEX IDX_51E4D30F4C493F27 (eval_yn_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

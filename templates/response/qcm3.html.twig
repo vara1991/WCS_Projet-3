@@ -13,13 +13,13 @@
                     sentiment d’utilité pour chacun.</p>
                 <form method="post">
                     <div class="row mb-3 mt-5 question-qcm">
-                        {{ question.id }}. {{ question.text }}
+                        <p>3. {{ question.text }}</p>
                     </div>
                     {% for response in responses|slice(6,3) %}
                         <div class="row mb-2">
                             <div class="col-sm-10">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="response" id="gridRadios1" value="{{ response.id }}">
+                                    <input class="form-check-input" type="radio" name="response" id="gridRadios1" value="{{ response.number }}">
                                     <label class="form-check-label" for="gridRadios1">
                                         {{ response.text }}
                                     </label>
