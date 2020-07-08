@@ -199,4 +199,12 @@ textarea.form-control {
     .cube {
         order: -4;
     }
+
+    .overlay {
+        display: none;
+    }
+
+    .logoNav3 {
+        height: 55px;
+    }
 }
