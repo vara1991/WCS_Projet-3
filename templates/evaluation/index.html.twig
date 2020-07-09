@@ -19,7 +19,7 @@
                     <div class="form-group row">
                         <label for="input_name" class="col-sm-8"><strong>Nom</strong> (ne pas remplir si vous préférez rester anonyme) :</label>
                         <div class="col-sm-4">
-                            <input type="text" id="input_name" name="name">
+                            <input class="form-control" type="text" id="input_name" name="name">
                         </div>
                     </div>
                     <hr class="my-4">
@@ -28,7 +28,7 @@
                         <div class="form-group row">
                             <p class="col-sm-10" >{{ question.question }}</p>
                             <div class="col-sm-2">
-                                <select name="responseYN{{ loop.index }}">
+                                <select class="form-control" name="responseYN{{ loop.index }}">
                                     {% for YN in evalYn %}
                                         <option  value="{{YN.id}}" >{{YN.response}}</option>
                                     {% endfor %}
@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <p class="col-sm-10" >{{ question.question }}</p>
                             <div class="col-sm-2">
-                                <select name="responseScore{{ loop.index }}">
+                                <select class="form-control" name="responseScore{{ loop.index }}">
                                     {% for score in evalScore %}
                                         <option value="{{score.id}}" >{{score.score}}</option>
                                     {% endfor %}
@@ -54,8 +54,8 @@
                     {% endfor %}
                     <div class="form-group row">
                         <label for="input_global_score" class="col-sm-10 bold">VOTRE NOTE DE SATISFACTION GLOBALE :</label>
-                        <div class="col-sm-1">
-                            <select name="global_score">
+                        <div class="col-sm-2">
+                            <select class="form-control" name="global_score">
                                 {% for i in 0..10 %}
                                     <option value="{{i}}">{{i}}</option>
                                 {% endfor %}
@@ -88,18 +88,18 @@
 
         const generateAttestation = () => {
             axios.get(linkToGenerateAttestation)
-            .then(response => console.log(response.data))
-            .then(response => {
-                attestationGenerated = true
-                sendMail();
-            })
-        };
+                .then(response => console.log(response.data))
+                .then(response => {
+                    attestationGenerated = true
+                    sendMail();
+                })
+        }
         const sendMail = () => {
             if(attestationGenerated == true){
                 axios.get(linkToSendMail)
-                .then(response => console.log(response.data))
+                    .then(response => console.log(response.data))
             }
-        };
+        }
 
         generateAttestation();
     </script>
