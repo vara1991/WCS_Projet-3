@@ -6,8 +6,10 @@ use App\Entity\Participant;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\ParticipantType;
+use App\Repository\ParticipantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -23,19 +25,23 @@ class ParticipantController extends AbstractController
      */
     private $session;
 
-    public function __construct(SessionInterface $sessionParticipant)
+    private $mailer;
+
+    private $participantRepository;
+
+    public function __construct(SessionInterface $sessionParticipant, ParticipantRepository $participantRepository, MailerInterface $mailer)
     {
         $this->session = $sessionParticipant;
+        $this->mailer = $mailer;
+        $this->participantRepository = $participantRepository;
     }
 
     /**
      * @Route("/participant", name="participant")
      * @param Request $request
-     * @param MailerInterface $mailer
      * @return Response
-     * @throws TransportExceptionInterface
      */
-    public function participant(Request $request, MailerInterface $mailer):Response
+    public function participant(Request $request):Response
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class, $participant);
@@ -49,32 +55,6 @@ class ParticipantController extends AbstractController
             $entityManager->flush();
             $this->session->set('id', $participant->getId());
 
-            $pdfOptions = new Options();
-            $pdfOptions->set('defaultFont', 'Arial');
-            $dompdf = new Dompdf($pdfOptions);
-            $company = $this->getUser()->getSession()->getCompany();
-            $training = $this->getUser()->getSession()->getTraining();
-            $html = $this->renderView('pdf/attestation.html.twig', [
-                'company' => $company,
-                'participant' => $participant,
-                'training' => $training
-            ]);
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-            $output = $dompdf->output();
-            $pdfFilepath = 'assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf';
-            file_put_contents($pdfFilepath, $output);
-
-            $email = (new TemplatedEmail())
-                ->from('sten.quidelleur@outlook.fr')
-                ->to('sten.test4php@gmail.com')
-                ->subject('Votre attestation de formation LUF/SCHILLER')
-                ->htmlTemplate('Home/email/attestation-email.html.twig')
-                ->context(['contact' => $participant])
-                ->attachFromPath('assets/documents/attestations'.'/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf');
-            $mailer->send($email);
-
             return $this->redirectToRoute('evaluation');
         }
 
@@ -82,5 +62,52 @@ class ParticipantController extends AbstractController
             'participant' => $participant,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/ajax-generate-attestation/{id}", name="ajax-generate-attestation",  methods={"GET", "POST"}))
+     * @param Participant $participant
+     * @return JsonResponse
+     */
+    public function generateAttestation(Participant $participant)
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($pdfOptions);
+        $company = $this->getUser()->getSession()->getCompany();
+        $training = $this->getUser()->getSession()->getTraining();
+        $html = $this->renderView('pdf/attestation.html.twig', [
+            'company' => $company,
+            'participant' => $participant,
+            'training' => $training
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $output = $dompdf->output();
+        $pdfFilepath = 'assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf';
+        file_put_contents($pdfFilepath, $output);
+
+        return $this->json(['message' => 'L\'attestation a bien été générée'], 200);
+    }
+
+    /**
+     * @Route("/ajax-send-mail/{id}", name="ajax-send-mail",  methods={"GET", "POST"}))
+     * @param Participant $participant
+     * @return JsonResponse
+     * @throws TransportExceptionInterface
+     */
+    public function sendMailToParticipant(Participant $participant)
+    {
+        $email = (new TemplatedEmail())
+            ->from('sten.quidelleur@outlook.fr')
+            ->to('sten.test4php@gmail.com')
+            ->subject('Votre attestation de formation LUF/SCHILLER')
+            ->htmlTemplate('Home/email/attestation-email.html.twig')
+            ->context(['contact' => $participant])
+            ->attachFromPath('assets/documents/attestations'.'/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf');
+        $this->mailer->send($email);
+
+        return $this->json(['message' => 'L\'attestation a bien été envoyée'], 200);
     }
 }

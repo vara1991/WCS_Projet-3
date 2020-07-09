@@ -10,12 +10,26 @@ use App\Entity\ResponseYn;
 use App\Repository\EvalQuestionRepository;
 use App\Repository\EvalScoreRepository;
 use App\Repository\EvalYnRepository;
+use App\Repository\ParticipantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class EvaluationController extends AbstractController
 {
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+    private $participantRepository;
+
+    public function __construct(ParticipantRepository $participantRepository, SessionInterface $sessionParticipant)
+    {
+        $this->participantRepository = $participantRepository;
+        $this->session = $sessionParticipant;
+    }
+
     /**
      * @Route("/evaluation", name="evaluation")
      */
@@ -56,6 +70,7 @@ class EvaluationController extends AbstractController
         }
 
         return $this->render('evaluation/index.html.twig', [
+            'participant' => $this->participantRepository->findOneBy(['id' => $this->session->get('id')]),
             'evalYn' => $evalYnRepository->findAll(),
             'evalScore' => $evalScoreRepository->findAll(),
             'questions' => $questionsRepository->findall(),
