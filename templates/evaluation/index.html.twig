@@ -46,7 +46,7 @@
                             <div class="col-sm-2">
                                 <select class="form-control" name="responseScore{{ loop.index }}">
                                     {% for score in evalScore %}
-                                        <option value="{{score.id}}" >{{score.score}}</option>
+                                        <option value="{{score.id}}" {% if score.score == 4 %} selected {% endif %}>{{score.score}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -57,7 +57,7 @@
                         <div class="col-sm-2">
                             <select class="form-control" name="global_score">
                                 {% for i in 0..10 %}
-                                    <option value="{{i}}">{{i}}</option>
+                                    <option value="{{i}}" {% if i == 10 %} selected {% endif %}>{{i}}</option>
                                 {% endfor %}
                             </select>
                         </div>
