@@ -89,7 +89,7 @@ class AppFixtures extends Fixture
         }
 
         $response = ['Elle tousse.' => 1,
-                    'Elle ne respire pas et ne bouge pas.' => 2,
+                    'Elle ne respire pas et ne répond pas.' => 2,
                     'Elle répond de façon complètement incohérente aux questions.' => 3,
                     '15 ; 18 ; 112 ; (114)' => 4,
                     '13 ; 14 ; 15' => 5,
