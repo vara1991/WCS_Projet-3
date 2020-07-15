@@ -209,10 +209,20 @@ textarea.form-control {
     }
 
     .overlay {
-        display: none;
+        display: none !important;
     }
 
     .logoNav3 {
         height: 55px;
+    }
+
+    .logo1 {
+        width: 130px;
+        height: 130px;
+    }
+
+    .logo-login {
+        width: 180px;
+        height: 160px;
     }
 }
