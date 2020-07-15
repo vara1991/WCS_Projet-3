@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\EvalScore;
 use App\Entity\Evaluation;
 use App\Entity\EvalYn;
+use App\Entity\User;
 use App\Entity\ResponseScore;
 use App\Entity\ResponseYn;
 use App\Repository\EvalQuestionRepository;
@@ -31,15 +32,20 @@ class EvaluationController extends AbstractController
     }
 
     /**
-     * @Route("/evaluation", name="evaluation")
+     * @Route("/evaluation/{id}", name="evaluation")
      */
-    public function index(Request $request, EvalQuestionRepository $questionsRepository, EvalYnRepository $evalYnRepository, EvalScoreRepository $evalScoreRepository)
+    public function index(Request $request, User $user, EvalQuestionRepository $questionsRepository, EvalYnRepository $evalYnRepository, EvalScoreRepository $evalScoreRepository)
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         $em = $this->getDoctrine()->getManager();
         $evaluation = new Evaluation();
         $evaluation->setCreatedAt(new \DateTime('now'));
-        $evaluation->setCompany($this->getUser()->getSession()->getCompany());
-        $evaluation->setTraining($this->getUser()->getSession()->getTraining());
+        $evaluation->setCompany($user->getSession()->getCompany());
+        $evaluation->setTraining($user->getSession()->getTraining());
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $evaluation->setName($_POST['name']);
@@ -52,16 +58,16 @@ class EvaluationController extends AbstractController
             for ($i=1 ; $i<=4; $i++){
                 $responseYn = new ResponseYn();
                 $responseYn->setEvaluation($evaluation);
-                $YN = $em->getRepository(EvalYN::class)->findBy(['id' => $_POST['responseYN'.$i]]);
-                $responseYn->setEvalYn($YN[0]);
+                $YN = $em->getRepository(EvalYN::class)->findOneBy(['id' => $_POST['responseYN'.$i]]);
+                $responseYn->setEvalYn($YN);
                 $em->persist($responseYn);
             }
 
             for ($i=1; $i<=6; $i++){
                 $responseScore = new ResponseScore();
                 $responseScore->setEvaluation($evaluation);
-                $score = $em->getRepository(EvalScore::class)->findBy(['id' => $_POST['responseScore'.$i]]);
-                $responseScore->setEvalScore($score[0]);
+                $score = $em->getRepository(EvalScore::class)->findOneBy(['id' => $_POST['responseScore'.$i]]);
+                $responseScore->setEvalScore($score);
                 $em->persist($responseScore);
             }
             $em->flush();
@@ -74,9 +80,10 @@ class EvaluationController extends AbstractController
             'evalYn' => $evalYnRepository->findAll(),
             'evalScore' => $evalScoreRepository->findAll(),
             'questions' => $questionsRepository->findall(),
-            'company' => $this->getUser()->getSession()->getCompany()->getName(),
-            'trainingDate' => $this->getUser()->getSession()->getTraining()->getFaceDate(),
-            'trainingName' => $this->getUser()->getSession()->getTraining()->getTitle(),
+            'company' => $user->getSession()->getCompany()->getName(),
+            'trainingDate' => $user->getSession()->getTraining()->getFaceDate(),
+            'trainingName' => $user->getSession()->getTraining()->getTitle(),
+            'connection' => $connection
         ]);
     }
 }

@@ -10,7 +10,7 @@
             </li>
         {% endif %}
         </ul>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') or connection == true%}
             <a href="{{ path('app_logout') }}" class="my-auto ml-2 btn btn-danger"><i class="fas fa-sign-out-alt"></i></a>
         {% endif %}
     </div>

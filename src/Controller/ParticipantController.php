@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\User;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -37,30 +38,39 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/participant", name="participant")
+     * @Route("/participant/{id}", name="participant")
      * @param Request $request
      * @return Response
      */
-    public function participant(Request $request):Response
+    public function participant(Request $request, User $user):Response
     {
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }else{
+            $connection = false;
+        }
+
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $participant->setSession($this->getUser()->getSession());
-            $participant->setCompany($this->getUser()->getSession()->getCompany());
+            $participant->setSession($user->getSession());
+            $participant->setCompany($user->getSession()->getCompany());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
             $entityManager->flush();
             $this->session->set('id', $participant->getId());
 
-            return $this->redirectToRoute('evaluation');
+            return $this->redirectToRoute('evaluation', [
+                'id' => $user->getId()
+            ]);
         }
 
         return $this->render('Form/participant.html.twig', [
             'participant' => $participant,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'connection' => $connection
         ]);
     }
 
@@ -74,8 +84,8 @@ class ParticipantController extends AbstractController
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($pdfOptions);
-        $company = $this->getUser()->getSession()->getCompany();
-        $training = $this->getUser()->getSession()->getTraining();
+        $company = $participant->getSession()->getCompany();
+        $training = $participant->getSession()->getTraining();
         $html = $this->renderView('pdf/attestation.html.twig', [
             'company' => $company,
             'participant' => $participant,
