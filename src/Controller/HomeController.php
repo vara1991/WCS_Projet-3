@@ -60,7 +60,7 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $email = (new TemplatedEmail())
-                ->from('sten.quidelleur@outlook.fr')
+                ->from('sten.test4php@gmail.com')
                 ->to('sten.test4php@gmail.com')
                 ->subject($contact->getObject())
                 ->htmlTemplate('Home/email/notification.html.twig')
@@ -92,6 +92,9 @@ class HomeController extends AbstractController
      */
     public function mentions_legales(): Response
     {
-        return $this->render('Home/mentions_legales.html.twig');
+        $connection = false;
+        return $this->render('Home/mentions_legales.html.twig', [
+            'connection' => $connection
+        ]);
     }
 }
