@@ -29,16 +29,21 @@ class QcmController extends AbstractController
      */
     public function qcm_1(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST['response'])){
                 $entityManager = $this->getDoctrine()->getManager();
                 $responseQcm = new ResponseQcm();
-                $response = $entityManager->getRepository(Response::class)->findBy(['number' => $_POST['response']]);
-                $responseQcm->setResponse($response[0]);
+                $response = $entityManager->getRepository(Response::class)->findOneBy(['number' => $_POST['response']]);
+                $responseQcm->setResponse($response);
                 $participantId = $this->session->get('id');
                 $repository = $this->getDoctrine()->getRepository(Participant::class);
-                $participant = $repository->findBy(['id' => $participantId]);
-                $responseQcm->setParticipant($participant[0]);
+                $participant = $repository->findOneBy(['id' => $participantId]);
+                $responseQcm->setParticipant($participant);
                 $entityManager->persist($responseQcm);
                 $entityManager->flush();
 
@@ -53,6 +58,7 @@ class QcmController extends AbstractController
                     'result' => $result,
                     'questions' => $questionRepository->findAll(),
                     'responses' => $responseRepository->findAll(),
+                    'connection' => $connection
                     ]);
 
             } else {
@@ -60,7 +66,8 @@ class QcmController extends AbstractController
                 return $this->render('response/index.html.twig', [
                     'questions' => $questionRepository->findAll(),
                     'responses' => $responseRepository->findAll(),
-                    'error' => $error
+                    'error' => $error,
+                    'connection' => $connection
                 ]);
             }
         }
@@ -68,6 +75,7 @@ class QcmController extends AbstractController
         return $this->render('response/index.html.twig', [
             'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
+            'connection' => $connection
         ]);
 
     }
@@ -77,16 +85,21 @@ class QcmController extends AbstractController
      */
     public function qcm_2(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST['response'])){
             $entityManager = $this->getDoctrine()->getManager();
             $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['number' => $_POST['response']]);
-            $responseQcm->setResponse($response[0]);
+            $response = $entityManager->getRepository(Response::class)->findOneBy(['number' => $_POST['response']]);
+            $responseQcm->setResponse($response);
             $participantId = $this->session->get('id');
             $repository = $this->getDoctrine()->getRepository(Participant::class);
-            $participant = $repository->findBy(['id' => $participantId]);
-            $responseQcm->setParticipant($participant[0]);
+            $participant = $repository->findOneBy(['id' => $participantId]);
+            $responseQcm->setParticipant($participant);
             $entityManager->persist($responseQcm);
             $entityManager->flush();
 
@@ -101,6 +114,7 @@ class QcmController extends AbstractController
                 'result' => $result,
                 'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
+                'connection' => $connection,
             ]);
 
         } else {
@@ -108,7 +122,8 @@ class QcmController extends AbstractController
             return $this->render('response/qcm2.html.twig', [
                 'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
-                'error' => $error
+                'error' => $error,
+                'connection' => $connection
             ]);
         }
     }
@@ -116,6 +131,7 @@ class QcmController extends AbstractController
         return $this->render('response/qcm2.html.twig', [
             'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
+            'connection' => $connection
         ]);
     }
 
@@ -124,16 +140,21 @@ class QcmController extends AbstractController
      */
     public function qcm_3(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST['response'])) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $responseQcm = new ResponseQcm();
-                $response = $entityManager->getRepository(Response::class)->findBy(['number' => $_POST['response']]);
-                $responseQcm->setResponse($response[0]);
+                $response = $entityManager->getRepository(Response::class)->findOneBy(['number' => $_POST['response']]);
+                $responseQcm->setResponse($response);
                 $participantId = $this->session->get('id');
                 $repository = $this->getDoctrine()->getRepository(Participant::class);
-                $participant = $repository->findBy(['id' => $participantId]);
-                $responseQcm->setParticipant($participant[0]);
+                $participant = $repository->findOneBy(['id' => $participantId]);
+                $responseQcm->setParticipant($participant);
                 $entityManager->persist($responseQcm);
                 $entityManager->flush();
 
@@ -143,12 +164,14 @@ class QcmController extends AbstractController
                 } else {
                     $result = false;
                 }
+
             } else {
                 $error = 'Veuillez sélectionner une réponse';
                 return $this->render('response/qcm3.html.twig', [
                     'questions' => $questionRepository->findAll(),
                     'responses' => $responseRepository->findAll(),
-                    'error' => $error
+                    'error' => $error,
+                    'connection' => $connection
                 ]);
             }
 
@@ -156,12 +179,14 @@ class QcmController extends AbstractController
                 'result' => $result,
                 'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
+                'connection' => $connection
             ]);
         }
 
         return $this->render('response/qcm3.html.twig', [
             'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
+            'connection' => $connection
         ]);
     }
 
@@ -170,7 +195,14 @@ class QcmController extends AbstractController
      */
     public function qcmEnd()
     {
-        return $this->render('response/qcmEnd.html.twig');
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
+        return $this->render('response/qcmEnd.html.twig',[
+            'connection' => $connection
+        ]);
     }
 
 }

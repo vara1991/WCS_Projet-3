@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,12 +16,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(SessionInterface $sessionParticipant)
+    {
+        $this->session = $sessionParticipant;
+    }
+
+    /**
      * @Route("/", name="home_index")
      * @return Response
      */
     public function index(): Response
     {
-        return $this->render('Home/index.html.twig');
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+        return $this->render('Home/index.html.twig',[
+            'connection' => $connection
+        ]);
     }
 
     /**
@@ -34,6 +49,11 @@ class HomeController extends AbstractController
      */
     public function contact(Request $request, MailerInterface $mailer) :Response
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -52,7 +72,8 @@ class HomeController extends AbstractController
         }
 
         return $this->render('Home/contact.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'connection' => $connection,
         ]);
     }
 

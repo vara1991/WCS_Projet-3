@@ -37,16 +37,10 @@ class AdminController extends AbstractController
         $user->setEmail($session->getCompany()->getEmail());
         $user->setSession($session);
         $user->setPassword($session->getPassword());
-        $user->setPassword(
-            $passwordEncoder->encodePassword(
-                $user,
-                $session->getPassword()
-            )
-        );
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        $this->addFlash('success', 'La connexion a bien été créée, l\'entreprise peut se connecter avec son email et le mot de passe à 4 chiffres créé dans session ! ');
+        $this->addFlash('success', 'La connexion a bien été créée, l\'entreprise peut se connecter avec le mot de passe à 4 chiffres créé dans session ! ');
 
         return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Session']);
     }
