@@ -152,7 +152,7 @@ class AdminController extends AbstractController
         file_put_contents($pdfFilepath, $output);
 
         $email = (new TemplatedEmail())
-            ->from('sten.quidelleur@outlook.fr')
+            ->from('sten.test4php@gmail.com')
             ->to('sten.test4php@gmail.com')
             ->subject('Avis et QCM de formation LUF/SCHILLER')
             ->htmlTemplate('Home/email/avis-qcm.html.twig')

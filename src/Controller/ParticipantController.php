@@ -110,7 +110,7 @@ class ParticipantController extends AbstractController
     public function sendMailToParticipant(Participant $participant)
     {
         $email = (new TemplatedEmail())
-            ->from('sten.quidelleur@outlook.fr')
+            ->from('sten.test4php@gmail.com')
             ->to('sten.test4php@gmail.com')
             ->subject('Votre attestation de formation LUF/SCHILLER')
             ->htmlTemplate('Home/email/attestation-email.html.twig')
