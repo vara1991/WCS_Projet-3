@@ -198,9 +198,9 @@ class Session
         return $this;
     }
 
-    public function __toString() {
-
-        return $this->getCompany()->getName();
+    public function __toString()
+    {
+        return $this->getId().'. '.$this->getCompany()->getName();
     }
 
     public function getUser(): ?User
