@@ -76,7 +76,7 @@ easy_admin:
           fields:
             - {property: 'title', label: 'Titre'}
             - {property: 'face_date', label: 'Date'}
-            - {property: 'hours', , label: 'Heure'}
+            - {property: 'hours', label: 'Heure'}
             - {property: 'session'}
             - {property: 'trainer', label: 'Formateur'}
         search:
