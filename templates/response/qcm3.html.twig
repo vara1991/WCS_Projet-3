@@ -3,7 +3,7 @@
 {% block title %}QCM{% endblock %}
 
 {% block body %}
-    <div class="container mt-5 col-sm-12 col-md-7 col-lg-7">
+    <div class="container mt-5 col-sm-12 col-md-10 col-lg-7">
         <div class="card bg-light mb-5">
             <div class="container-qcm mx-4">
                 <h2 class="text-center my-4">QCM</h2>
@@ -21,8 +21,8 @@
                         <div class="row mb-2">
                             <div class="col-sm-10">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="response" id="gridRadios1" value="{{ response.number }}">
-                                    <label class="form-check-label" for="gridRadios1">
+                                    <input class="form-check-input" type="radio" name="response" id="gridRadios{{ response.number }}" value="{{ response.number }}">
+                                    <label class="form-check-label" for="gridRadios{{ response.number }}">
                                         {{ response.text }}
                                     </label>
                                 </div>
