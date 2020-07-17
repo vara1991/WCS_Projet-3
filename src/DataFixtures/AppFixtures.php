@@ -39,14 +39,14 @@ class AppFixtures extends Fixture
             $manager->persist($civ);
         }
 
-        $companyArray = [];
+        /*$companyArray = [];
         for ($i=0; $i<10; $i++) {
             $company = new Company();
             $company->setEmail($faker->email);
             $company->setName($faker->name);
             $manager->persist($company);
             $companyArray[] = $company;
-        }
+        }*/
 
         $evalQuestion = ['Formation prévue dans mon agenda par mon établissement ou ma collectivité',
                         'Utile pour renforcer mes connaissances professionnelles ou personnelles',
@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
             $manager->persist($resp);
         }
 
-        $trainerArray = [];
+        /*$trainerArray = [];
         for ($i=0; $i<3; $i++) {
             $trainer = new Trainer;
             $trainer->setFirstname($faker->firstName);
@@ -144,7 +144,7 @@ class AppFixtures extends Fixture
             $participant->setEmail($faker->email);
             $participant->setSession($faker->randomElement($sessionArray));
             $manager->persist($participant);
-        }
+        }*/
 
         $user = new User();
         $user->setEmail('gauthier.ranner@schillerfrance.fr');

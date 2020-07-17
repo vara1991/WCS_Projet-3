@@ -60,6 +60,9 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $email = (new TemplatedEmail())
+                //->from('mafomation.life@gmail.com')
+                //->to($contact->getEmail())
+                //->cc('gauthier.ranner@schillerfrance.fr')
                 ->from('sten.test4php@gmail.com')
                 ->to('sten.test4php@gmail.com')
                 ->subject($contact->getObject())
