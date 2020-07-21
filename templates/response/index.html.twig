@@ -34,22 +34,23 @@
                             {{ error }}
                         {% endif %}
                     </div>
-                    <div class="col text-center mt-3">
-                    {% if result is defined %}
-                        <a href="{{ path('qcm_2') }}" class="btn btn-success my-3">Suivant</a>
+
+                    {% if result is defined and result == true %}
+                         <p class="italic">Bravo !</p>
+                    {% elseif result is defined and result == false%}
+                         <p class="italic">Voici la bonne réponse :</p>
+                         <p class="message-qcm italic">L’absence de signes de vie correspond à un arrêt cardiaque, la victime ne ventile pas, n’a pas de mouvement et ne
+                                parle pas. On peut donc affirmer qu’elle ne respire pas et ne bouge pas.</p>
                     {% else %}
-                        <button type="submit" class="btn btn-info my-3">Valider</button>
                     {% endif %}
+                    <div class="col text-center mt-3">
+                        {% if result is defined %}
+                            <a href="{{ path('qcm_2') }}" class="btn btn-success my-3">Suivant</a>
+                        {% else %}
+                            <button type="submit" class="btn btn-info my-3">Valider</button>
+                        {% endif %}
                     </div>
                 </form>
-                {% if result is defined and result == true %}
-                     <p>Bravo !</p>
-                {% elseif result is defined and result == false%}
-                     <p>Voici la bonne réponse :</p>
-                     <p class="message-qcm">L’absence de signes de vie correspond à un arrêt cardiaque, la victime ne ventile pas, n’a pas de mouvement et ne
-                            parle pas. On peut donc affirmer qu’elle ne respire pas et ne bouge pas.</p>
-                {% else %}
-                {% endif %}
             </div>
         </div>
     </div>

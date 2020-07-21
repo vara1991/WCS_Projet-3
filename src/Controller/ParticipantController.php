@@ -116,7 +116,7 @@ class ParticipantController extends AbstractController
         $email = (new TemplatedEmail())
             //->from('mafomation.life@gmail.com')
             //->to($participant->getEmail())
-            //->cc('gauthier.ranner@schillerfrance.fr')
+            //->cc('mafomation.life@gmail.com')
             ->from('sten.test4php@gmail.com')
             ->to('sten.test4php@gmail.com')
             ->subject('Votre attestation de formation LUF/SCHILLER')

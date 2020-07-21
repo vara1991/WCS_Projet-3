@@ -156,21 +156,21 @@ class AdminController extends AbstractController
         $pdfFilepath = 'assets/documents/evaluation/evaluation' . $session->getCompany()->getName() . $session->getId() . '.pdf';
         file_put_contents($pdfFilepath, $output);
 
+        $email = (new TemplatedEmail())
+            //->from('mafomation.life@gmail.com')
+            //->to($session->getCompany()->getEmail())
+            //->cc('maformation.life@gmail.com')
+            ->from('sten.test4php@gmail.com')
+            ->to('sten.test4php@gmail.com')
+            ->subject('Avis et QCM de formation LUF/SCHILLER')
+            ->htmlTemplate('Home/email/avis-qcm.html.twig')
+            ->context(['contact' => $session])
+            ->attachFromPath('assets/documents/evaluation/evaluation' . $session->getCompany()->getName() . $session->getId() . '.pdf')
+            ->attachFromPath('assets/documents/qcm/qcm_' . $session->getCompany()->getName() . '_session' . $session->getId() . '.pdf');
+        $mailer->send($email);
+
         $em = $this->getDoctrine()->getManager();
         foreach ($participants as $participant) {
-            $email = (new TemplatedEmail())
-                //->from('mafomation.life@gmail.com')
-                //->to($participant->getEmail())
-                //->cc('gauthier.ranner@schillerfrance.fr')
-                ->from('sten.test4php@gmail.com')
-                ->to('sten.test4php@gmail.com')
-                ->subject('Avis et QCM de formation LUF/SCHILLER')
-                ->htmlTemplate('Home/email/avis-qcm.html.twig')
-                ->context(['contact' => $session])
-                ->attachFromPath('assets/documents/evaluation/evaluation' . $session->getCompany()->getName() . $session->getId() . '.pdf')
-                ->attachFromPath('assets/documents/qcm/qcm_' . $session->getCompany()->getName() . '_session' . $session->getId() . '.pdf');
-            $mailer->send($email);
-
             $filesystem->remove(['assets/documents/attestations/attestation'.$participant->getFirstname().$participant->getLastname().$participant->getId().'.pdf']);
             $participant->setFirstname('XXX');
             $participant->setLastname('XXX');

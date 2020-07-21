@@ -34,29 +34,30 @@
                             {{ error }}
                         {% endif %}
                     </div>
-                    <div class="col text-center mt-3">
-                    {% if result is defined %}
-                        <a href="{{ path('qcm_3') }}" class="btn btn-success my-3">Suivant</a>
-                    {% else %}
-                        <button type="submit" class="btn btn-info my-3">Valider</button>
-                    {% endif %}
-                    </div>
-                </form>
+
                 {% if result is defined and result == true %}
-                    <p>Bravo !</p>
+                    <p class="italic">Bravo !</p>
                 {% elseif result is defined and result == false%}
-                    <p>Voici la bonne réponse :</p>
-                    <p class="message-qcm">Le 15 est rattaché au SAMU.</p>
-                    <p class="message-qcm">Le 18 est rattaché au service départemental d’incendie et de secours des pompiers.</p>
-                    <p class="message-qcm">Le 112 est un numéro d&#39;appel d’urgence unique validé par l’Union européenne, qui ne se substitue pas aux
+                    <p class="italic">Voici la bonne réponse :</p>
+                    <p class="message-qcm italic">Le 15 est rattaché au SAMU.</p>
+                    <p class="message-qcm italic">Le 18 est rattaché au service départemental d’incendie et de secours des pompiers.</p>
+                    <p class="message-qcm italic">Le 112 est un numéro d&#39;appel d’urgence unique validé par l’Union européenne, qui ne se substitue pas aux
                         numéros directs des services de secours locaux. La bascule se fait souvent vers le 18.</p>
-                    <p class="message-qcm">Le 114 est une ligne d’urgence de mise en relation avec les services existants, disponibles spécifiquement pour les
+                    <p class="message-qcm italic">Le 114 est une ligne d’urgence de mise en relation avec les services existants, disponibles spécifiquement pour les
                         sourds et malentendants par SMS, smartphone ou ordinateur.</p>
-                    <p class="message-qcm">Pour votre information complémentaire : le 911 quant à lui est un numéro d&#39;appel d’urgence unique
+                    <p class="message-qcm italic">Pour votre information complémentaire : le 911 quant à lui est un numéro d&#39;appel d’urgence unique
                         historiquement aux USA, et largement développé dans le monde entier. En France le 911 bascule sur le 112.
                         Aussi, les services de police et de gendarmerie sont toujours accessibles par le 17.</p>
                 {% else %}
                 {% endif %}
+                    <div class="col text-center mt-3">
+                        {% if result is defined %}
+                            <a href="{{ path('qcm_3') }}" class="btn btn-success my-3">Suivant</a>
+                        {% else %}
+                            <button type="submit" class="btn btn-info my-3">Valider</button>
+                        {% endif %}
+                    </div>
+                </form>
             </div>
         </div>
     </div>

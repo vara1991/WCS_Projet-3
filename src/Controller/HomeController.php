@@ -66,7 +66,7 @@ class HomeController extends AbstractController
             $email = (new TemplatedEmail())
                 //->from('mafomation.life@gmail.com')
                 //->to($contact->getEmail())
-                //->cc('gauthier.ranner@schillerfrance.fr')
+                //->cc('mafomation.life@gmail.com')
                 ->from('sten.test4php@gmail.com')
                 ->to('sten.test4php@gmail.com')
                 ->subject($contact->getObject())
