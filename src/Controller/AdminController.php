@@ -24,6 +24,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class AdminController extends AbstractController
 {
+    //this function take the session data and create an user in EasyAdmin
     /**
      * @Route(path = "/admin/admin/register/{id}", name = "session_register")
      * @param UserPasswordEncoderInterface $passwordEncoder
@@ -45,6 +46,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Session']);
     }
 
+    //this function show the qcm_list pdf in EasyAdmin
     /**
      * @Route(path = "/qcm_list", name = "qcm_list")
      * @param Request $request
@@ -64,6 +66,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //this function show the evaluation pdf in EasyAdmin
     /**
      * @Route("/evaluation_pdf", name="evaluation_pdf")
      * @param Request $request
@@ -81,7 +84,8 @@ class AdminController extends AbstractController
             'evaluation' => $pdfEvaluation,
         ]);
     }
-          
+
+    //this function show the evaluation pdf in EasyAdmin
     /**
      * @Route(path = "/attestation", name = "attestation")
      * @param Request $request
@@ -100,6 +104,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //this function create pdf qcm_list, pdf evaluation, send them at the company, archived session and hiding participants data
     /**
      * @Route(path = "/archived/{id}", name = "archived")
      * @param Session $session

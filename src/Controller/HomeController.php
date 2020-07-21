@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    // The SessionInterface save the participant in global var session
     /**
      * @var SessionInterface
      */
@@ -31,6 +32,7 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+        //These three lines correspond to the connection of a user
         $connection = false;
         if ($this->session->get('connection') == true){
             $connection = true;
@@ -40,6 +42,7 @@ class HomeController extends AbstractController
         ]);
     }
 
+    //this function send an email at the administrator with the contact form
     /**
      * @Route("/contact", name="contact")
      * @param Request $request
@@ -49,6 +52,7 @@ class HomeController extends AbstractController
      */
     public function contact(Request $request, MailerInterface $mailer) :Response
     {
+        //These three lines correspond to the connection of a participant
         $connection = false;
         if ($this->session->get('connection') == true){
             $connection = true;
@@ -80,6 +84,7 @@ class HomeController extends AbstractController
         ]);
     }
 
+    //this function show the Memento
     /**
      * @Route("/memento", name="memento")
      * @return Response
@@ -89,6 +94,7 @@ class HomeController extends AbstractController
         return $this->render('Home/email/memento.html.twig');
     }
 
+    //this function show the legal notice
     /**
      * @Route("/mentions-legales", name="mentions_legales")
      * @return Response

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class LoginController extends AbstractController
 {
-
+    // The SessionInterface save the participant in global var session
     /**
      * @var SessionInterface
      */
@@ -22,6 +22,7 @@ class LoginController extends AbstractController
         $this->session = $sessionParticipant;
     }
 
+    //this function put the connection->true for the participant if it's the good the password
     /**
      * @Route("/login", name="login")
      */

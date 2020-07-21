@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ParticipantController extends AbstractController
 {
-
+    // The SessionInterface save the participant in global var session
     /**
      * @var SessionInterface
      */
@@ -37,6 +37,7 @@ class ParticipantController extends AbstractController
         $this->participantRepository = $participantRepository;
     }
 
+    //this function flush the participant data and save the id of this participant in SessionInterface
     /**
      * @Route("/participant/{id}", name="participant")
      * @param Request $request
@@ -44,6 +45,7 @@ class ParticipantController extends AbstractController
      */
     public function participant(Request $request, User $user):Response
     {
+        //These three lines correspond to the connection of a participant
         if ($this->session->get('connection') == true){
             $connection = true;
         }else{
@@ -74,6 +76,7 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    //this function generate the certificate of this participant with Ajax on the next page("Evaluation-Page")
     /**
      * @Route("/ajax-generate-attestation/{id}", name="ajax-generate-attestation",  methods={"GET", "POST"}))
      * @param Participant $participant
@@ -101,6 +104,7 @@ class ParticipantController extends AbstractController
         return $this->json(['message' => 'L\'attestation a bien été générée'], 200);
     }
 
+    //this function send an email at this participant with his certificate with Ajax on the next page("Evaluation-Page")
     /**
      * @Route("/ajax-send-mail/{id}", name="ajax-send-mail",  methods={"GET", "POST"}))
      * @param Participant $participant
