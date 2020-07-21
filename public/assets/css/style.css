@@ -158,6 +158,11 @@ textarea.form-control {
     text-align: justify;
 }
 
+.italic {
+    font-style: italic;
+    text-decoration: underline;
+}
+
 .three-questions {
     color: red;
   }
