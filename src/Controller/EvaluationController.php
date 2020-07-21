@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class EvaluationController extends AbstractController
 {
+    // The SessionInterface save the participant in global var session
     /**
      * @var SessionInterface
      */
@@ -31,11 +32,13 @@ class EvaluationController extends AbstractController
         $this->session = $sessionParticipant;
     }
 
+    //this function take the evaluation of the participant connected
     /**
      * @Route("/evaluation/{id}", name="evaluation")
      */
     public function index(Request $request, User $user, EvalQuestionRepository $questionsRepository, EvalYnRepository $evalYnRepository, EvalScoreRepository $evalScoreRepository)
     {
+        //These three lines correspond to the connection of a participant
         $connection = false;
         if ($this->session->get('connection') == true){
             $connection = true;

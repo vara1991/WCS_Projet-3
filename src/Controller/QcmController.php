@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class QcmController extends AbstractController
 {
+    // The SessionInterface save the participant in global var session
     /**
      * @var SessionInterface
      */
@@ -24,11 +25,13 @@ class QcmController extends AbstractController
         $this->session = $sessionParticipant;
     }
 
+    //this function take the response with the participant connected
     /**
      * @Route("/qcm-1", name="qcm_1", methods={"GET", "POST"})
      */
     public function qcm_1(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
+        //These three lines correspond to the connection of a participant
         $connection = false;
         if ($this->session->get('connection') == true){
             $connection = true;
@@ -80,6 +83,7 @@ class QcmController extends AbstractController
 
     }
 
+    //this function take the response with the participant connected
     /**
      * @Route("/qcm-2", name="qcm_2", methods={"GET", "POST"})
      */
@@ -135,6 +139,7 @@ class QcmController extends AbstractController
         ]);
     }
 
+    //this function take the response with the participant connected
     /**
      * @Route("/qcm-3", name="qcm_3", methods={"GET", "POST"})
      */
@@ -190,6 +195,7 @@ class QcmController extends AbstractController
         ]);
     }
 
+    //this function show the thanks
     /**
      * @Route("/qcmEnd", name="qcm_end", methods={"GET", "POST"})
      */
