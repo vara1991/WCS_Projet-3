@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales{% endblock %}
+
+{% block body %}
+    <div class="container pt-5 col-sm-12 col-md-9 col-lg-9">
+        <div class="card bg-light px-4 mb-5">
+            <div class="container px-4">
+                <h1 class="text-center my-5">Mentions légales</h1>
+                <p>
+                    <span class="bold">Learning Urgences Factory</span> est une unité de production de formation dédiée exclusivement à <span class="bold">SCHILLER France</span>.
+                    Elle est identifiée comme étant Learning Urgences Factory by SCHILLER France, sous la forme juridique d’une SARL au capital de 1.000 €.
+                    Siret 84458300500013 – NAF APE 8559A - RCS MEAUX – N° Identification TVA : FR96844583005. Learning Urgences Factory possède une Déclaration d'activité enregistrée sous le numéro 11770660677 auprès du préfet de région d’Ile-de-France.
+                </p>
+                <p>
+                    <span class="bold">Siège administratif de production au sein de SCHILLER France</span><br>
+                    6 Rue Raoul Follereau, 77600 Bussy-Saint-Georges.
+                </p>
+                <p>
+                    <span class="bold">Contact</span><br>
+                    Service Client SCHILLER France : 07 62 48 83 30<br>
+                    serviceclient@schillerfrance.fr<br>
+                    Directrice de division Collectivités / Entreprises : Cécile PERVIEUX<br>
+                    Référent pédagogique : Gauthier RANNER<br>
+                </p>
+                <p>
+                    <span class="bold">Hébergement</span><br>
+                    OVH, SAS au capital de 10 069 020 €, RCS Lille Métropole 424 761 419 00045, Code APE 2620Z<br>
+                    N° TVA : FR 22 424 761 419<br>
+                </p>
+                <p>
+                    <span class="bold">Système de qualité</span><br>
+                    Nous mettons tout en œuvre pour vous donner satisfaction, et dans le cadre de notre démarche qualité nous serions ravis de répondre à vos attentes.
+                    Dans le but de vous assurer une conformité parfaite, de mesurer et d‘améliorer nos performances, mais aussi de conforter et de capitaliser nos bonnes pratiques, nous suivons actuellement un processus de certifications, conformément à l’échéance du 1er janvier 2022, où tout prestataire de formation devra obtenir la nouvelle certification qualité Qualiopi.
+                    Nous sommes à votre disposition dans la page de <a href="{{ path('contact') }}">contact</a>.
+                </p>
+                <p>
+                    <span class="bold">Données personnelles</span><br>
+                    En tant qu’organisme de formation pour des raisons de suivi, de qualité et de contrôle auprès des autorités référentes, nous conservons seulement les doubles de votre attestation de formation, de votre évaluation ainsi que l’évaluation de vos connaissances acquises.
+                    Ces documents peuvent être fournis à votre employeur, l’organisme ou la collectivité qui vous a invité dans le cadre de la formation que vous avez suivie.
+                    Nous ne conservons pas vos données de connexion, et vos identifiants seront systématiquement supprimés à l’issue de la session de votre entreprise ou collectivité.
+                    D'une façon générale, vous pouvez visiter notre site sur Internet librement sur les pages accessibles aux liens techniques et commerciaux, sans avoir à décliner votre identité et à fournir des informations personnelles vous concernant.
+                    Cependant, l’accès à notre documentation pédagogique et l’envoi de l’attestation de suivi de formation sont réservés à nos participants détenant un code d’identification généré par notre administrateur avant la formation présentielle.
+                    Celui-ci est nécessaire pour identifier votre session de formation antérieure.
+                </p>
+                <div class="col text-center">
+                    <a href="{{ path('home_index') }}" class="btn btn-info my-3">Accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

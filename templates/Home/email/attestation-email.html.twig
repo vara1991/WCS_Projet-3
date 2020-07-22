@@ -3,12 +3,9 @@
         <row>
             <columns>
                 <spacer size="10"></spacer>
-                <div class="logo">
-                    <a href="{{ url('home_index') }}">
-                        <img src="{{ email.image('@images/email/logo.jpg') }}" class="logo1" alt="LUF LOGO">
-                    </a>
-                    <a href="https://www.schiller.ch/fr/fr">
-                        <img src="{{ email.image('@images/email/logoschiller.jpg') }}" class="logo2" alt="SCHILLER LOGO">
+                <div>
+                    <a href="http://www.maformation.life/">
+                        <img src="{{ email.image('@images/email/SNAG-0008.jpg') }}" class="logo2" alt="SCHILLER LOGO">
                     </a>
                 </div>
             </columns>
@@ -29,14 +26,15 @@
                 <p>
                     Chers participants, chers clients, chers partenaires,
                 </p>
+                <br>
                 <p>
                     Toute l’équipe de SCHILLER France vous remercie vivement d’avoir participé à cette formation. Voici votre attestation de suivi en pièce jointe.
                 </p>
                 <p>
-                    Consultez ou téléchargez notre memento de la formation, qui vous sera utile pour conserver en mémoire les détails les plus complets de votre formation, le temps de vous revoir prochainement lors d’un maintien de vos compétences.
+                    Consultez ou téléchargez notre mémento de la formation qui vous sera utile pour conserver en mémoire les détails les plus complets de votre formation, le temps de vous revoir prochainement lors d’un maintien de vos compétences.
+                    Votre <a class="btn btn-success" href="{{ url('memento') }}">MÉMENTO</a>
                 </p>
-                <p> Votre <a class="btn btn-success" href="{{ url('memento') }}">MEMENTO</a></p>
-                <p>Retrouver tous nos liens par le biais de notre WebApp de formation <a href="www.maformation.life">www.maformation.life</a>  : Catalogue de nos formations, Formation à distance, Le guide du défibrillateur, Les produits SCHILLER, Boutique Mediprostore, Service client, Le blog de Mediprostore.</p>
+                <p>Retrouvez tous nos liens par le biais de notre WebApp de formation <a href="www.maformation.life">www.maformation.life</a>  : Catalogue de nos formations, Formation à distance, Le guide du défibrillateur, Les produits SCHILLER, Boutique Mediprostore, Service client, Le blog de Mediprostore.</p>
             </columns>
         </row>
         <row class="bottom">
@@ -44,7 +42,7 @@
                 <center>
                     <spacer size="20"></spacer>
                     <p class="credit">
-                        Cet email a été autogénéré par <strong>{{ contact.civility }} {{ contact.firstname }} {{ contact.lastname }}</strong> sur l’application en ligne de Learning Urgences Factory By SCHILLER France, validant le suivi de formation, dans le but de délivrer l’attestation de suivi de formation au participant, ainsi que le lien vers notre memento. L’email utilisé n’appartient pas à une liste de diffusion, vous ne recevrez plus jamais d’autre email pour cette formation. Veuillez s’il vous plait ne pas répondre à cet email autogénéré. Ce message et toutes les pièces jointes sont confidentiels et établis à l'intention exclusive de son destinataire. Si vous avez reçu ce message par erreur, merci de nous avertir immédiatement en utilisant <a href="{{ url('contact') }}">notre formulaire de contact</a> Learning Urgences Factory by SCHILLER France, SARL au capital de 1.000 €. Siret 84458300500013 – NAF APE 8559A - RCS MEAUX – N° Identification TVA : FR96844583005.
+                        Ce couriel a été autogénéré par <strong>{{ contact.civility }} {{ contact.firstname }} {{ contact.lastname }}</strong> sur l’application en ligne de Learning Urgences Factory By SCHILLER France, validant le suivi de formation, dans le but de délivrer l’attestation de suivi de formation au participant, ainsi que le lien vers notre mémento. L’email utilisé n’appartient pas à une liste de diffusion, vous ne recevrez plus jamais d’autre email pour cette formation. Veuillez s’il vous plait ne pas répondre à cet email autogénéré. Ce message et toutes les pièces jointes sont confidentiels et établis à l'intention exclusive de son destinataire. Si vous avez reçu ce message par erreur, merci de nous avertir immédiatement en utilisant <a href="{{ url('contact') }}">notre formulaire de contact</a> Learning Urgences Factory by SCHILLER France, SARL au capital de 1.000 €. Siret 84458300500013 – NAF APE 8559A - RCS MEAUX – N° Identification TVA : FR96844583005.
                     </p>
                 </center>
             </columns>

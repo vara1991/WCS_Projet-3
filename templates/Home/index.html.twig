@@ -3,67 +3,78 @@
 {% block body %}
 <div class="container mt-4 home d-flex justify-content-center">
     <div class="row my-2" style="width: 720px;">
-        <div class="carré-1 mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
-            <a class="logo" href="https://www.schiller.ch/fr/fr/service-client" target="_blank">
-                <img class="logo1" src="assets/logos/logo-service-client.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay"> Notre Service Client</div>
+        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+            <a class="logo" href="https://www.schiller.ch/fr/fr" target="_blank">
+                <img class="logo1" src="assets/logos/Produits_SFSAS.jpg"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Nos produits Schiller</strong></div></div>
+            </a>
+        </div>
+        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+            <a class="logo" href="http://sat.schillerfrance.fr/Catalogues/2020_02_Brochure_LUF_tarifs.pdf" target="_blank">
+                <img class="logo1" src="assets/logos/Catalogue_Formations.jpg"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Les Formations</strong></div></div>
+            </a>
+        </div>
+        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+            <a class="logo" href="https://youtu.be/i8q5dfCr3JA" target="_blank">
+                <img class="logo1" src="assets/logos/FAD.jpg"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>E-learning</strong></div></div>
+            </a>
+        </div>
+        {% if connection == true %}
+            <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+                <a class="logo" href="https://www.mediprostore.com/" target="_blank">
+                    <img class="logo1" src="assets/logos/Boutique.jpg"  height="200px" width="200px" alt="">
+                    <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Boutique en ligne</strong></div></div>
+                </a>
+            </div>
+            <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+                <a class="logo" href="{{ asset('assets/documents/Memento.pdf') }}" target="_blank">
+                    <img class="logo-memento" src="assets/logos/Votre_MEMENTO_PNG_white.png"  height="200px" width="200px" alt="">
+                    <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>MEMENTO</strong></div></div>
+                </a>
+            </div>
+            <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
+                <a class="logo" href="https://www.schiller.ch/fr/fr/service-client" target="_blank">
+                    <img class="logo1" src="assets/logos/Service_Client.jpg"  height="200px" width="200px" alt="">
+                    <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Notre Service Client</strong></div></div>
+                </a>
+            </div>
+        {% else %}
+            <div class="mt-sm-0 mt-md-4 mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+                <a class="logo" href="https://www.mediprostore.com/" target="_blank">
+                    <img class="logo1" src="assets/logos/Boutique.jpg"  height="200px" width="200px" alt="">
+                    <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Boutique en ligne</strong></div></div>
+                </a>
+            </div>
+            <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
+                <a class="logo" href="{{ path('login') }}">
+                    <img class="logo-login" src="assets/logos/logo-votre-esp-formation-central.png"  height="250px" width="260px" alt="">
+                </a>
+            </div>
+            <div class="mt-sm-0 mt-md-4 mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
+                <a class="logo" href="https://www.schiller.ch/fr/fr/service-client" target="_blank">
+                    <img class="logo1" src="assets/logos/Service_Client.jpg"  height="200px" width="200px" alt="">
+                    <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Notre Service Client</strong></div></div>
+                </a>
+            </div>
+        {% endif %}
+        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
+            <a class="logo" href="https://blog.mediprostore.com/" target="_blank">
+                <img class="logo1" src="assets/logos/Le_blog.jpg"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Notre Blog</strong></div></div>
             </a>
         </div>
         <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center">
-            <a class="logo" href="https://blog.mediprostore.com/" target="_blank">
-                <img class="logo1" src="assets/logos/logo blog.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">Notre Blog</div>
-            </a>
-        </div>
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="https://www.mediprostore.com/" target="_blank">
-                <img class="logo1" src="assets/logos/logo-boutique-en-ligne.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">Boutique en ligne</div>
-            </a>
-        </div>
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="https://www.schiller.ch/fr/fr" target="_blank">
-                <img class="logo1" src="assets/logos/logo-produit.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">Nos produits Schiller</div>
-            </a>
-        </div>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="{{ asset('assets/documents/Memento.pdf') }}">
-                <img src="assets/images/memento/memento.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">MEMENTO</div>
-            </a>
-        </div>
-        {% else %}
-        <div class="cube mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="{{ path('app_login') }}">
-                <img src="assets/logos/logo-votre-esp-formation-central.png"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">LOGIN</div>
-            </a>
-        </div>
-        {% endif %}
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="http://sat.schillerfrance.fr/Catalogues/2020_02_Brochure_LUF_tarifs.pdf" target="_blank">
-                <img class="logo1" src="assets/logos/logo-formation.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">Les Formations</div>
-            </a>
-        </div>
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="https://www.luf-digital.com/public-videos/TEASER_VF.mp4" target="_blank">
-                <img class="logo1" src="assets/logos/logo-e-learning.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">E-learning</div>
+            <a class="logo" href="{{ asset('assets/documents/2019_guide_complet_DAE.pdf') }}" target="_blank">
+                <img class="logo1" src="assets/logos/Guide_du_DAE.jpg"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Guide du DAE</strong></div></div>
             </a>
         </div>
         <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
             <a class="logo" href="{{ path('contact') }}">
-                <img class="logo1" src="assets/logos/logo-contact.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">Contact</div>
-            </a>
-        </div>
-        <div class="mb-3 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center" >
-            <a class="logo" href="{{ asset('assets/documents/2019_guide_complet_DAE.pdf') }}">
-                <img class="logo1" src="assets/logos/logo-guide-DAE.jpg"  height="200px" width="200px" alt="">
-                <div class="d-flex align-items-center justify-content-center overlay">Guide du DAE</div>
+                <img class="logo1" src="assets/logos/Contact.jpg"  height="200px" width="200px" alt="">
+                <div class="d-flex align-items-center justify-content-center overlay"><img src="assets/logos/carre_icone_vide_liserer.gif" height="200px" width="300px" alt=""><div class="centered"><strong>Contact</strong></div></div>
             </a>
         </div>
     </div>

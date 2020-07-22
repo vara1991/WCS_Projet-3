@@ -34,8 +34,19 @@ body {
     background-color: rgba(250,250,250,1);
 }
 
+.centered {
+    position: absolute;
+    top: 45%;
+}
+
 .logo1 {
     background-color: white;
+    box-shadow: -15px 5px rgba(0, 0, 0, 0.5);
+}
+
+.logo-memento {
+    background: linear-gradient(70deg, rgba(218, 31, 61, 1), rgba(245, 130, 32, 1), rgba(255, 220, 2, 1));
+    box-shadow: -15px 5px rgba(0, 0, 0, 0.5);
 }
 
 .logo:hover .overlay {
@@ -55,6 +66,11 @@ body {
 .logoNav3 {
     width: 150px;
 }
+
+.logotitle {
+    width: 600px;
+}
+
 .main {
     min-height: calc(100vh - 85px - 54px);
 }
@@ -67,13 +83,21 @@ body {
     padding-left: 15px;
 }
 
-.legal a {
-    text-decoration: underline;
-    color: #FFF;
-}
-.legal {
+.div-legal{
     color: #FFF;
     font-size: 14px;
+}
+
+.div-legal a{
+    color: #FFF;
+}
+
+.link-admin:hover{
+    text-decoration: none;
+}
+
+.legal {
+    text-decoration: underline;
 }
 
 .nav-title {
@@ -84,9 +108,20 @@ footer{
     background-color: #033f5f;
 }
 
+.reseau i{
+    color: #fff;
+}
+
 textarea.form-control {
     height: 200px;
 }
+
+.cube img:hover {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    transition-duration: 1s;
+}
+
 /*////////ATTESTATION/////////*/
 
 .main-attestation {
@@ -118,6 +153,29 @@ textarea.form-control {
     font-size: 11px;
 }
 
+/* QCM */
+.message-qcm {
+    text-align: justify;
+}
+
+.italic {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.three-questions {
+    color: red;
+  }
+
+.question-qcm {
+    font-weight: bold;
+}
+
+.qcm-error {
+    color: red;
+    font-style: italic;
+}
+
 /* evaluation */
 .question{
     text-decoration: underline;
@@ -142,6 +200,17 @@ textarea.form-control {
     line-height: 0;
 }
 
+@media only screen and (max-width: 1150px) {
+    .logotitle {
+        width: 400px;
+        margin-top: -20px !important;
+    }
+
+    .navbar {
+        flex-direction: column !important;
+    }
+}
+
 @media only screen and (max-width: 600px) {
 
     .navbar {
@@ -150,7 +219,35 @@ textarea.form-control {
     .line{
         line-height: 1.5rem;
     }
+
+    .logotitle {
+        width: 200px;
+        margin-top: -20px !important;
+    }
+
     .cube {
         order: -4;
+    }
+
+    .overlay {
+        display: none !important;
+    }
+
+    .logoNav3 {
+        height: 55px;
+    }
+
+    .logo1 {
+        width: 130px;
+        height: 130px;
+    }
+
+    .logo-login {
+        width: 180px;
+        height: 160px;
+    }
+
+    .message-qcm {
+        text-align: inherit;
     }
 }

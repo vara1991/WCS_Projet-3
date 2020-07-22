@@ -44,17 +44,11 @@ class Company
      */
     private $evaluations;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Certificate::class, mappedBy="company")
-     */
-    private $certificates;
-
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
-        $this->certificates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,39 +173,8 @@ class Company
         return $this;
     }
 
-    /**
-     * @return Collection|Certificate[]
-     */
-    public function getCertificates(): Collection
+    public function __toString()
     {
-        return $this->certificates;
-    }
-
-    public function addCertificate(Certificate $certificate): self
-    {
-        if (!$this->certificates->contains($certificate)) {
-            $this->certificates[] = $certificate;
-            $certificate->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCertificate(Certificate $certificate): self
-    {
-        if ($this->certificates->contains($certificate)) {
-            $this->certificates->removeElement($certificate);
-            // set the owning side to null (unless already changed)
-            if ($certificate->getCompany() === $this) {
-                $certificate->setCompany(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function __toString() {
-
         return $this->getName();
     }
 

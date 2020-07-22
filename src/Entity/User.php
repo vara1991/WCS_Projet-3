@@ -37,7 +37,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="user")
+     * @ORM\OneToOne(targetEntity=Session::class, mappedBy="user")
      */
     private $session;
 
@@ -119,8 +119,8 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function __toString() {
-
+    public function __toString()
+    {
         return $this->getEmail();
     }
 
@@ -132,6 +132,12 @@ class User implements UserInterface
     public function setSession(?Session $session): self
     {
         $this->session = $session;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $session ? null : $this;
+        if ($session->getUser() !== $newUser) {
+            $session->setUser($newUser);
+        }
 
         return $this;
     }

@@ -15,14 +15,14 @@ hr {
     border-top: 3px solid #264459;
     margin: 20px;
 }
+p {
+    text-align: justify;
+}
 .welcome {
     background-color: #264459;
 }
 .bottom {
     background-color: #efefee;
-}
-.logo {
-    display: flex;
 }
 .logo1 {
     height: 100%;

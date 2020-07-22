@@ -6,6 +6,7 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -40,11 +41,6 @@ class Participant
     private $company;
 
     /**
-     * @ORM\OneToOne(targetEntity=Certificate::class, mappedBy="participant", cascade={"persist", "remove"})
-     */
-    private $certificate;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="participants")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -65,6 +61,11 @@ class Participant
      * @ORM\OneToMany(targetEntity=ResponseQcm::class, mappedBy="participant", orphanRemoval=true)
      */
     private $responseQcms;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_archived = false;
 
     public function __construct()
     {
@@ -120,23 +121,6 @@ class Participant
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
-
-        return $this;
-    }
-
-    public function getCertificate(): ?Certificate
-    {
-        return $this->certificate;
-    }
-
-    public function setCertificate(Certificate $certificate): self
-    {
-        $this->certificate = $certificate;
-
-        // set the owning side of the relation if necessary
-        if ($certificate->getParticipant() !== $this) {
-            $certificate->setParticipant($this);
-        }
 
         return $this;
     }
@@ -208,9 +192,20 @@ class Participant
         return $this;
     }
 
-
     public function __toString()
     {
         return $this->getLastname();
+    }
+
+    public function getIsArchived(): ?bool
+    {
+        return $this->is_archived;
+    }
+
+    public function setIsArchived(bool $is_archived): self
+    {
+        $this->is_archived = $is_archived;
+
+        return $this;
     }
 }

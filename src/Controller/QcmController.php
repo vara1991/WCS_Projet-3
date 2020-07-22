@@ -2,127 +2,213 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Response;
 use App\Entity\ResponseQcm;
-use App\Form\QcmType;
-use App\Repository\ParticipantRepository;
 use App\Repository\QuestionRepository;
 use App\Repository\ResponseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class QcmController extends AbstractController
 {
+    // The SessionInterface save the participant in global var session
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(SessionInterface $sessionParticipant)
+    {
+        $this->session = $sessionParticipant;
+    }
+
+    //this function take the response with the participant connected
     /**
      * @Route("/qcm-1", name="qcm_1", methods={"GET", "POST"})
      */
-    public function qcm_1(QuestionRepository $questionRepository, ParticipantRepository $participantRepository, ResponseRepository $responseRepository, Request $request)
+    public function qcm_1(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $entityManager = $this->getDoctrine()->getManager();
-            $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-            $responseQcm->setResponse($response[0]);
-            $entityManager->persist($responseQcm);
-            $entityManager->flush();
-
-            $result = null;
-            if ($_POST['response'] == 2){
-                $result = true;
-            } else {
-                $result = false;
-            }
-
-            return $this->render('response/index.html.twig', [
-                'result' => $result,
-                'question' => $questionRepository->findOneById(1),
-                'participant' => $participantRepository->findOneById(1),
-                'responses' => $responseRepository->findAll(),
-                ]);
+        //These three lines correspond to the connection of a participant
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
         }
-       
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST['response'])){
+                $entityManager = $this->getDoctrine()->getManager();
+                $responseQcm = new ResponseQcm();
+                $response = $entityManager->getRepository(Response::class)->findOneBy(['number' => $_POST['response']]);
+                $responseQcm->setResponse($response);
+                $participantId = $this->session->get('id');
+                $repository = $this->getDoctrine()->getRepository(Participant::class);
+                $participant = $repository->findOneBy(['id' => $participantId]);
+                $responseQcm->setParticipant($participant);
+                $entityManager->persist($responseQcm);
+                $entityManager->flush();
+
+                $result = null;
+                if ($_POST['response'] == 2){
+                    $result = true;
+                } else {
+                    $result = false;
+                }
+
+                return $this->render('response/index.html.twig', [
+                    'result' => $result,
+                    'questions' => $questionRepository->findAll(),
+                    'responses' => $responseRepository->findAll(),
+                    'connection' => $connection
+                    ]);
+
+            } else {
+                $error = 'Veuillez sélectionner une réponse';
+                return $this->render('response/index.html.twig', [
+                    'questions' => $questionRepository->findAll(),
+                    'responses' => $responseRepository->findAll(),
+                    'error' => $error,
+                    'connection' => $connection
+                ]);
+            }
+        }
+
         return $this->render('response/index.html.twig', [
-            'question' => $questionRepository->findOneById(1),
-            'participant' => $participantRepository->findOneById(1),
+            'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
+            'connection' => $connection
         ]);
+
     }
 
+    //this function take the response with the participant connected
     /**
      * @Route("/qcm-2", name="qcm_2", methods={"GET", "POST"})
      */
-    public function qcm_2(QuestionRepository $questionRepository, ParticipantRepository $participantRepository, ResponseRepository $responseRepository, Request $request)
+    public function qcm_2(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //dd($_POST);
+            if (!empty($_POST['response'])){
             $entityManager = $this->getDoctrine()->getManager();
             $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-            $responseQcm->setResponse($response[0]);
+            $response = $entityManager->getRepository(Response::class)->findOneBy(['number' => $_POST['response']]);
+            $responseQcm->setResponse($response);
+            $participantId = $this->session->get('id');
+            $repository = $this->getDoctrine()->getRepository(Participant::class);
+            $participant = $repository->findOneBy(['id' => $participantId]);
+            $responseQcm->setParticipant($participant);
             $entityManager->persist($responseQcm);
             $entityManager->flush();
+
             $result = null;
             if ($_POST['response'] == 4){
                 $result = true;
             } else {
                 $result = false;
             }
+
             return $this->render('response/qcm2.html.twig', [
                 'result' => $result,
-                'question' => $questionRepository->findOneById(2),
-                'participant' => $participantRepository->findOneById(1),
+                'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
+                'connection' => $connection,
+            ]);
+
+        } else {
+            $error = 'Veuillez sélectionner une réponse';
+            return $this->render('response/qcm2.html.twig', [
+                'questions' => $questionRepository->findAll(),
+                'responses' => $responseRepository->findAll(),
+                'error' => $error,
+                'connection' => $connection
             ]);
         }
+    }
 
         return $this->render('response/qcm2.html.twig', [
-            'question' => $questionRepository->findOneById(2),
-            'participant' => $participantRepository->findOneById(1),
+            'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
+            'connection' => $connection
         ]);
     }
 
+    //this function take the response with the participant connected
     /**
      * @Route("/qcm-3", name="qcm_3", methods={"GET", "POST"})
      */
-    public function qcm_3(QuestionRepository $questionRepository, ParticipantRepository $participantRepository, ResponseRepository $responseRepository, Request $request)
+    public function qcm_3(QuestionRepository $questionRepository, ResponseRepository $responseRepository)
     {
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //dd($_POST);
-            $entityManager = $this->getDoctrine()->getManager();
-            $responseQcm = new ResponseQcm();
-            $response = $entityManager->getRepository(Response::class)->findBy(['id' => $_POST['response']]);
-            $responseQcm->setResponse($response[0]);
-            $entityManager->persist($responseQcm);
-            $entityManager->flush();
-            $result = null;
-            if ($_POST['response'] == 8){
-                $result = true;
+            if (!empty($_POST['response'])) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $responseQcm = new ResponseQcm();
+                $response = $entityManager->getRepository(Response::class)->findOneBy(['number' => $_POST['response']]);
+                $responseQcm->setResponse($response);
+                $participantId = $this->session->get('id');
+                $repository = $this->getDoctrine()->getRepository(Participant::class);
+                $participant = $repository->findOneBy(['id' => $participantId]);
+                $responseQcm->setParticipant($participant);
+                $entityManager->persist($responseQcm);
+                $entityManager->flush();
+
+                $result = null;
+                if ($_POST['response'] == 8) {
+                    $result = true;
+                } else {
+                    $result = false;
+                }
+
             } else {
-                $result = false;
+                $error = 'Veuillez sélectionner une réponse';
+                return $this->render('response/qcm3.html.twig', [
+                    'questions' => $questionRepository->findAll(),
+                    'responses' => $responseRepository->findAll(),
+                    'error' => $error,
+                    'connection' => $connection
+                ]);
             }
+
             return $this->render('response/qcm3.html.twig', [
                 'result' => $result,
-                'question' => $questionRepository->findOneById(3),
-                'participant' => $participantRepository->findOneById(1),
+                'questions' => $questionRepository->findAll(),
                 'responses' => $responseRepository->findAll(),
+                'connection' => $connection
             ]);
         }
 
         return $this->render('response/qcm3.html.twig', [
-            'question' => $questionRepository->findOneById(3),
-            'participant' => $participantRepository->findOneById(1),
+            'questions' => $questionRepository->findAll(),
             'responses' => $responseRepository->findAll(),
+            'connection' => $connection
         ]);
     }
 
+    //this function show the thanks
     /**
      * @Route("/qcmEnd", name="qcm_end", methods={"GET", "POST"})
      */
     public function qcmEnd()
     {
-        return $this->render('response/qcmEnd.html.twig');
+        $connection = false;
+        if ($this->session->get('connection') == true){
+            $connection = true;
+        }
+
+        return $this->render('response/qcmEnd.html.twig',[
+            'connection' => $connection
+        ]);
     }
 
 }
