@@ -1,0 +1,36 @@
+{% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/email.css')) %}
+    <container>
+        <row>
+            <columns>
+                <div>
+                    <a href="http://www.maformation.life/">
+                        <img src="{{ email.image('@images/email/SNAG-0008.jpg') }}" class="logo2" alt="SCHILLER LOGO">
+                    </a>
+                </div>
+            </columns>
+        </row>
+        <row class="welcome">
+            <columns>
+                <spacer size="30"></spacer>
+                <h1>
+                    <center>
+                        {{ contact.company }}
+                    </center>
+                </h1>
+            </columns>
+        </row>
+        <spacer size="30"></spacer>
+        <row>
+            <columns>
+                <p>
+                    Chers participants, chers clients, chers partenaires,
+                </p>
+                <p>
+                    Toute l’équipe de SCHILLER France vous remercie vivement d’avoir participé à cette formation. Voici les avis ainsi que les réponses au QCM des participants en pièce jointe.
+                </p>
+
+                <p>Retrouvez tous nos liens par le biais de notre WebApp de formation <a href="www.maformation.life">www.maformation.life</a>  : Catalogue de nos formations, Formation à distance, Le guide du défibrillateur, Les produits SCHILLER, Boutique Mediprostore, Service client, Le blog de Mediprostore.</p>
+            </columns>
+        </row>
+    </container>
+{% endapply %}

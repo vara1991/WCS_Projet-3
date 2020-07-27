@@ -1,0 +1,17 @@
+<nav class="navbar navbar-white bg-white">
+    <div id="logo1" class="navbar-brand ml-3 mr-md-3" ><img class="logoNav1" src="/assets/logos/logo-nav1.jpg" alt=""><img class="logoNav2" src="/assets/logos/logo-nav2.jpg" alt=""></div>
+    <div class="nav-title mt-1 pr-md-5 col text-center"><img class="logotitle" src="/assets/logos/Title-nav.jpg" alt=""></div>
+    <div class="d-flex">
+        <img class="logoNav3 mr-md-3 ml-md-4" src="/assets/logos/logo nav3.jpg" alt="">
+        <ul class="navbar-nav mr-auto">
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="mr-3 mt-2 btn btn-info"  href="{{ path('easyadmin') }}">Admin-LUF</a>
+            </li>
+        {% endif %}
+        </ul>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') or connection == true%}
+            <a href="{{ path('app_logout') }}" class="my-auto ml-2 btn btn-danger"><i class="fas fa-sign-out-alt"></i></a>
+        {% endif %}
+    </div>
+</nav>

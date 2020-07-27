@@ -1,0 +1,253 @@
+body {
+    margin:0;
+    padding:0;
+    background: url("https://i.postimg.cc/FKkrVYqZ/background.jpg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.home img {
+    border-radius: 10px;
+}
+
+.home a {
+    color: #222222;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.25rem;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(250,250,250,1);
+}
+
+.centered {
+    position: absolute;
+    top: 45%;
+}
+
+.logo1 {
+    background-color: white;
+    box-shadow: -15px 5px rgba(0, 0, 0, 0.5);
+}
+
+.logo-memento {
+    background: linear-gradient(70deg, rgba(218, 31, 61, 1), rgba(245, 130, 32, 1), rgba(255, 220, 2, 1));
+    box-shadow: -15px 5px rgba(0, 0, 0, 0.5);
+}
+
+.logo:hover .overlay {
+    opacity: 1;
+}
+
+.logoNav1 {
+    width: 150px;
+    margin: 0;
+}
+
+.logoNav2 {
+    width: 80px;
+    margin: 0;
+}
+
+.logoNav3 {
+    width: 150px;
+}
+
+.logotitle {
+    width: 600px;
+}
+
+.main {
+    min-height: calc(100vh - 85px - 54px);
+}
+.col-form-label {
+    display: none;
+}
+
+.container-qcm {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.div-legal{
+    color: #FFF;
+    font-size: 14px;
+}
+
+.div-legal a{
+    color: #FFF;
+}
+
+.link-admin:hover{
+    text-decoration: none;
+}
+
+.legal {
+    text-decoration: underline;
+}
+
+.nav-title {
+    font-size: 25px;
+}
+
+footer{
+    background-color: #033f5f;
+}
+
+.reseau i{
+    color: #fff;
+}
+
+textarea.form-control {
+    height: 200px;
+}
+
+.cube img:hover {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    transition-duration: 1s;
+}
+
+/*////////ATTESTATION/////////*/
+
+.main-attestation {
+    background-image: url("../../assets/logos/background_attestation.png");
+    background-size: 38%;
+    height: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-align: center;
+}
+
+#body-attestation {
+    background: white;
+}
+
+.text-attestation {
+    padding-top: 5px;
+}
+
+.title {
+    font-size: 40px;
+    padding-top: 160px;
+}
+
+.p-attestation {
+    text-align: justify;
+    margin-left: 10%;
+    font-size: 11px;
+}
+
+/* QCM */
+.message-qcm {
+    text-align: justify;
+}
+
+.italic {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.three-questions {
+    color: red;
+  }
+
+.question-qcm {
+    font-weight: bold;
+}
+
+.qcm-error {
+    color: red;
+    font-style: italic;
+}
+
+/* evaluation */
+.question{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.red{
+    color: red;
+}
+.orange{
+    color: orange;
+}
+.olive{
+    color: olive;
+}
+.green{
+    color:green;
+}
+.bold{
+    font-weight: bold;
+}
+.line{
+    line-height: 0;
+}
+
+@media only screen and (max-width: 1150px) {
+    .logotitle {
+        width: 400px;
+        margin-top: -20px !important;
+    }
+
+    .navbar {
+        flex-direction: column !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .navbar {
+        flex-direction: column !important;
+    }
+    .line{
+        line-height: 1.5rem;
+    }
+
+    .logotitle {
+        width: 200px;
+        margin-top: -20px !important;
+    }
+
+    .cube {
+        order: -4;
+    }
+
+    .overlay {
+        display: none !important;
+    }
+
+    .logoNav3 {
+        height: 55px;
+    }
+
+    .logo1 {
+        width: 130px;
+        height: 130px;
+    }
+
+    .logo-login {
+        width: 180px;
+        height: 160px;
+    }
+
+    .message-qcm {
+        text-align: inherit;
+    }
+}

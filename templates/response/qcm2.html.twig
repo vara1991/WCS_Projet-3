@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QCM{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 col-sm-12 col-md-10 col-lg-7">
+        <div class="card bg-light mb-5">
+            <div class="container-qcm mx-4">
+                <h2 class="text-center my-4">QCM</h2>
+                <p class="message-qcm">Pour finaliser et parfaire un bon parcours d’apprentissage, il est aussi intéressant de stimuler sa mémoire.
+                    L’occasion était trop belle pour nous d’élaborer <span class="three-questions">3 questions simples</span>, finalisant l’observation de vos compétences
+                    acquises. Parce que la vraie finalité de cette action de formation que vous avez suivie, c’est d’avoir aussi le
+                    sentiment d’utilité pour chacun.</p>
+                <form method="post">
+                    <div class="row mb-3 mt-5 question-qcm">
+                        {% for question in questions|slice(1,1) %}
+                            <p>2. {{ question.text }}</p>
+                        {% endfor %}
+                    </div>
+                    {% for response in responses|slice(3,3) %}
+                        <div class="row mb-2">
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="response" id="gridRadios{{ response.number }}" value="{{ response.number }}">
+                                    <label class="form-check-label" for="gridRadios{{ response.number }}">
+                                        {{ response.text }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="qcm-error mt-3">
+                        {% if error is defined %}
+                            {{ error }}
+                        {% endif %}
+                    </div>
+
+                {% if result is defined and result == true %}
+                    <p class="italic">Bravo !</p>
+                {% elseif result is defined and result == false%}
+                    <p class="italic">Voici la bonne réponse :</p>
+                    <p class="message-qcm italic">Le 15 est rattaché au SAMU.</p>
+                    <p class="message-qcm italic">Le 18 est rattaché au service départemental d’incendie et de secours des pompiers.</p>
+                    <p class="message-qcm italic">Le 112 est un numéro d&#39;appel d’urgence unique validé par l’Union européenne, qui ne se substitue pas aux
+                        numéros directs des services de secours locaux. La bascule se fait souvent vers le 18.</p>
+                    <p class="message-qcm italic">Le 114 est une ligne d’urgence de mise en relation avec les services existants, disponibles spécifiquement pour les
+                        sourds et malentendants par SMS, smartphone ou ordinateur.</p>
+                    <p class="message-qcm italic">Pour votre information complémentaire : le 911 quant à lui est un numéro d&#39;appel d’urgence unique
+                        historiquement aux USA, et largement développé dans le monde entier. En France le 911 bascule sur le 112.
+                        Aussi, les services de police et de gendarmerie sont toujours accessibles par le 17.</p>
+                {% else %}
+                {% endif %}
+                    <div class="col text-center mt-3">
+                        {% if result is defined %}
+                            <a href="{{ path('qcm_3') }}" class="btn btn-success my-3">Suivant</a>
+                        {% else %}
+                            <button type="submit" class="btn btn-info my-3">Valider</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
