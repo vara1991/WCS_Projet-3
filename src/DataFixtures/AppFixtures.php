@@ -147,8 +147,9 @@ class AppFixtures extends Fixture
         }*/
 
         $user = new User();
-        $user->setEmail('gauthier.ranner@schillerfrance.fr');
+        $user->setEmail('varaponegaire@gmail.com');
         $user->setPassword($this->encoder->encodePassword($user,'azerty'));
+        $user->setRoles(["ROLE_ADMIN"]);
         $manager->persist($user);
 
         $manager->flush();
